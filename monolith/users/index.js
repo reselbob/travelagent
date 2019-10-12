@@ -1,5 +1,6 @@
-const {getItems,getItemSync, setItem} = require('../utilities');
+const {getItems,getItemSync, setItem, validateItemSync} = require('../utilities');
 const path = require('path');
+const {cryptPassword, comparePassword} = require('../authentication');
 const uuidv4 = require('uuid/v4');
 
 class Users {
@@ -9,7 +10,6 @@ class Users {
     async getItem(id) {
         const arr = await this.getItems();
         return getItemSync(arr,id);
-
     }
 
     async getItems() {
@@ -18,27 +18,19 @@ class Users {
     }
 
     async setItem(item) {
-        item.id = uuidv4();
-        item.createDate = new Date();
-        let errs = [];
-        for(let prop in item) {
-            if(!item[prop])errs.push(prop)
-        }
-        if(errs.length > 0) throw new Error({message: 'Missing required properties', properties:errs})
-
+        const model = this.getDataModelSync();
+        validateItemSync(item, model);
         const filespec = path.join(__dirname, 'data.json');
         return await setItem(filespec, item);
     }
 
-    getDataHolderSync(){
+    getDataModelSync(){
         const obj = {};
-        obj.id;
+        obj.userName;
         obj.firstName;
         obj.lastName;
         obj.email;
         obj.phone;
-        obj.createDate;
-
         return obj;
     };
 }

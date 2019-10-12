@@ -6,7 +6,9 @@ const Hotel = require('./hotel');
 const Auto = require('./auto');
 const Reservation = require('./reservations');
 const Users = require('./users');
+const Authentication = require('./authentication/model');
 const port = process.env.APP_PORT || 3000;
+const {validateItem} = require('./utilities');
 
 const agent = 'Reselbob Travel';
 
@@ -66,11 +68,41 @@ dispatcher.onPost("/reservations", async (req, res) => {
     res.end(str);
 });
 
+
+const postToUsers = async (userData) =>{
+    const users = new Users();
+    const pwd = userData.password;
+    //remove the password from the user
+    delete userData.password;
+    let result = await users.setItem(userData);
+
+    //reattach the password
+    userData.password = pwd;
+
+    result = await postToAuthentication(userData);
+    return result
+};
+
+const postToAuthentication = async (userData) =>{
+    const authentication = new Authentication();
+    const result = await authentication.setItem(userData);
+    return result;
+};
+
+dispatcher.onGet("/authenticate", async (req, res) => {
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    const obj =  {service: 'authenticate', message: "Not Implemented"};
+    const str = JSON.stringify(obj);
+    console.log(str);
+    res.end(str);
+});
+
+
+
 dispatcher.onPost("/users", async (req, res) => {
     console.log(req.body);
     const data = JSON.parse(req.body);
-    const users = new Users();
-    const result = await users.setItem(data);
+    const result = await postToUsers(data);
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({service: 'users',result});
     console.log({service: 'users',result, date: new Date()});

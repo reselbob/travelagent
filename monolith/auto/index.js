@@ -17,21 +17,14 @@ class Auto {
         return getItems(filespec);
     }
 
-    async setItem(item) {
-        item.id = uuid4();
-        const filespec = path.join(__dirname, 'data.json');
-        return await setItem(filespec, item);
-    }
-
-    getDataHolderSync(){
+    getDataModelSync(){
         const obj = {};
-        obj.id;
         obj.vendor;
         obj.make;
         obj.model;
         obj.checkIn;
         obj.checkOut;
-        obj.price
+        obj.price;
 
         return obj;
     };

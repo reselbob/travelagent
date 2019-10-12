@@ -23,7 +23,7 @@ class Airline {
         return await setItem(filespec, item);
     }
 
-   getDataHolderSync() {
+   getDataModelSync() {
         const obj = {};
         obj.id;
         obj.vendor;

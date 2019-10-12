@@ -16,9 +16,13 @@ class Hotel {
         const filespec = path.join(__dirname, 'data.json');
         return getItems(filespec);
     }
-    getDataHolderSync(){
+
+    async setItem(item) {
+        const filespec = path.join(__dirname, 'data.json');
+        return await setItem(filespec, item,  this.getDataModelSync());
+    }
+    getDataModelSync(){
         const obj = {};
-        obj.id;
         obj.vendor;
         obj.checkIn;
         obj.checkOut;

@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "httpdispatcher": "^2.1.2",
     "uuid": "^3.3.3"
   },

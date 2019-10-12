@@ -1,5 +1,6 @@
 const fs = require('fs');
 const util = require('util');
+const uuidv4 = require('uuid/v4');
 
 const getItems = async (fileSpec) => {
     const readFile = util.promisify(fs.readFile);
@@ -17,7 +18,22 @@ const getItemSync = (arr, id) => {
     }
 };
 
-const setItem = async (fileSpec, item) => {
+/*
+Validates that all the properties in the parameter,
+item have values. Otherwise an error is thrown.
+ */
+const validateItemSync = (item, dataModel) => {
+    let errs = [];
+    for(let prop in dataModel) {
+        if(!item[prop])errs.push(prop)
+    }
+    if(errs.length > 0) throw new Error({message: 'Missing required properties', properties:errs, item});
+};
+
+const setItem = async (fileSpec, item, dataModel) => {
+    item.id = uuidv4();
+    item.createDate = new Date();
+    validateItemSync(item, dataModel);
     let items = await getItems(fileSpec);
     if(!Array.isArray(items)) items = new Array();
     items.push(item);
@@ -30,17 +46,6 @@ const setItem = async (fileSpec, item) => {
 };
 
 
-const getDataHolder = (type) => {
-    switch (type.toUpperCase()){
-        case 'AIRLINE':
-            return getAirLineDataHolder();
-        case 'HOTEL' :
-            return getHotelDataHolder();
-        case 'AUTO' :
-            return getAutoDataHolder();
-    }
-};
-
-module.exports = {getItems,getItemSync, setItem};
+module.exports = {getItems,getItemSync, setItem, validateItemSync};
 
 

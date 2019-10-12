@@ -23,19 +23,17 @@ class Reservations {
         item.hotel.id = uuidv4();
         item.auto.id = uuidv4();
         const filespec = path.join(__dirname, 'data.json');
-        const result =  await setItem(filespec, item);
+        const result =  await setItem(filespec, item,  this.getDataModelSync());
 
         return result;
     }
 
-    getDataHolderSync(){
+    getDataModelSync(){
         const obj = {};
-        obj.id;
         obj.user;
         obj.airline;
         obj.hotel;
         obj.auto;
-        obj.createDate;
 
         return obj;
     };
