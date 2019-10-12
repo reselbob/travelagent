@@ -89,3 +89,5 @@ const seed = async () => {
 };
 //fire it off here
 seed();
+
+module.exports = {seed};

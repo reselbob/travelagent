@@ -14,10 +14,13 @@ const Reservation = require('../reservations');
 const Users = require('../users');
 const faker = require('faker');
 const {server, shutdown} = require('../index');
+const {seed} = require('../utilities/seeder');
 
 describe('HTTP Tests: ', () => {
 
-    before(() => {
+    before(async () => {
+        //const result =  await seed();
+        //return result
     });
 
 
@@ -122,21 +125,20 @@ describe('HTTP Tests: ', () => {
         const user  = createUser();
 
         const res = new Reservation().getDataHolderSync();
+        const userList = await new Users().getItems();
+
         res.id = uuidv4();
-        res.firstName = user.firstName;
-        res.lastName = user.lastName;
-        res.email = user.email;
-        res.phone = user.phone;;
+        res.user = sample(userList);
         res.airline = air;
         res.hotel = h;
         res.auto = a;
         res.createDate = new Date();
 
         return res;
-    }
+    };
 
     it('Can post reservations', async () => {
-        //Go get all the lists
+
         const res = await createReservation();
         await supertest(server)
             .post('/reservations')
