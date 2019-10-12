@@ -1,30 +1,16 @@
 'use strict';
 const supertest = require('supertest');
-const chai = require('chai');
 const expect = require('chai').expect;
 const describe = require('mocha').describe;
 const it = require('mocha').it;
-const uuidv4 = require('uuid/v4');
+
 const {createUser, createReservation} = require('../utilities/seeder');
 
-
-const Airline = require('../airline');
-const Hotel = require('../hotel');
-const Auto = require('../auto');
 const Reservation = require('../reservations');
-const Users = require('../users');
-const faker = require('faker');
-const {server, shutdown} = require('../index');
-const {seed} = require('../utilities/seeder');
+const {server} = require('../index');
+
 
 describe('HTTP Tests: ', () => {
-
-    before(async () => {
-        //const result =  await seed();
-        //return result
-    });
-
-
     after(async () => {
         await server.close();
         console.log('testing done');
