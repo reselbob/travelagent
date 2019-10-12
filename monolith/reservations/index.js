@@ -8,8 +8,8 @@ class Reservations {
     }
     async getItem(id) {
         const arr = await this.getItems();
-        return getItemSync(arr,name);
-
+        const result =  getItemSync(arr,id);
+        return result;
     }
 
     async getItems() {

@@ -35,10 +35,25 @@ dispatcher.onGet("/auto", async (req, res) =>  {
 });
 
 dispatcher.onGet("/reservations", async (req, res) => {
+    //Check to see if there is an id, query parameter
+    let id;
+    if(req.url.indexOf('?') > 0){
+        const arr = req.url.substring(req.url.indexOf('?')+ 1).split('=');
+        if(arr[0]=== 'id')id = arr[1];
+    }
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({service: 'reservations'});
+    let data;
+    if(id){
+        data = await new Reservation().getItem(id);
+    }else{
+        data = await new Reservation().getItems();
+    }
+
+    console.log({message: 'Return reservations', data});
+    const str = JSON.stringify({service: 'reservations', data});
     res.end(str);
 });
+
 
 dispatcher.onPost("/reservations", async (req, res) => {
     console.log(req.body);

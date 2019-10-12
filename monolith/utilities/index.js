@@ -10,8 +10,10 @@ const getItems = async (fileSpec) => {
 };
 
 const getItemSync = (arr, id) => {
-    for (let i = 0; i < arr.lenth; i++) {
-        if (arr[i] === id) return arr[i];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].id === id) {
+            return arr[i];
+        }
     }
 };
 
