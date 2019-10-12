@@ -1,26 +1,10 @@
-const {getItems,getItemSync, setItem} = require('../utilities');
 const path = require('path');
-const uuidv4 = require('uuid/v4');
+const Base = require('../base');
 
-class Airline {
-    constructor(){
-        return this;
-    }
-    async getItem(name) {
-        const arr = await this.getItems();
-        return getItemSync(arr,name);
-
-    }
-
-    async getItems() {
-        const filespec = path.join(__dirname, 'data.json');
-        return getItems(filespec);
-    }
-
-    async setItem(item) {
-        item.id = uuid4();
-        const filespec = path.join(__dirname, 'data.json');
-        return await setItem(filespec, item);
+class Airline extends Base{
+    getInventoryItems(){
+        const filespec = path.join(__dirname, 'inventory.json');
+        return super.getItems(filespec);
     }
 
    getDataModelSync() {
@@ -30,7 +14,7 @@ class Airline {
         obj.flightNumber;
         obj.departure;
         obj.return;
-        obj.fare
+        obj.fare;
 
        return obj;
     };

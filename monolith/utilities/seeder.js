@@ -36,7 +36,7 @@ const createReservation = async () => {
 
     const airline = new Airline();
     const air = airline.getDataModelSync();
-    air.vendor = sample(await airline.getItems());
+    air.vendor = sample(await airline.getInventoryItems());
     air.flightNumber = random(5000);
     air.departure = startDate;
     air.return = endDate;
@@ -44,14 +44,14 @@ const createReservation = async () => {
 
     const hotel = new Hotel();
     const h = hotel.getDataModelSync();
-    h.vendor = sample(await hotel.getItems());
+    h.vendor = sample(await hotel.getInventoryItems());
     h.checkIn = startDate;
     h.checkOut = endDate;
     h.price = (random(100) + 100) * daysToAdd;
 
     const auto = new Auto();
     const a = auto.getDataModelSync();
-    a.vendor = sample(await auto.getItems());
+    a.vendor = sample(await auto.getInventoryItems());
     a.checkIn = startDate;
     a.checkOut = endDate;
     a.price = random(100) * daysToAdd;

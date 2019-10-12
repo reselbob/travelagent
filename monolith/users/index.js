@@ -1,28 +1,20 @@
-const {getItems,getItemSync, setItem, validateItemSync} = require('../utilities');
 const path = require('path');
-const {cryptPassword, comparePassword} = require('../authentication');
-const uuidv4 = require('uuid/v4');
+const Base = require('../base');
 
-class Users {
-    constructor(){
-        return this;
-    }
-    async getItem(id) {
-        const arr = await this.getItems();
-        return getItemSync(arr,id);
-    }
+class Users extends Base{
 
     async getItems() {
         const filespec = path.join(__dirname, 'data.json');
-        return getItems(filespec);
+        return super.getItems(filespec);
     }
 
     async setItem(item) {
         const model = this.getDataModelSync();
-        validateItemSync(item, model);
+        super.validateItemSync(item, model);
         const filespec = path.join(__dirname, 'data.json');
-        return await setItem(filespec, item);
+        return await super.setItem(item,filespec, model);
     }
+
 
     getDataModelSync(){
         const obj = {};

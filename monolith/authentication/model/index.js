@@ -1,7 +1,6 @@
-const {getItems, getItemSync, setItem} = require('../../utilities');
-const { cryptPassword,comparePassword,createToken} = require('../authenticationHelper');
+const { cryptPassword,createToken} = require('../authenticationHelper');
 const path = require('path');
-
+const Base = require('../../base');
 
 const incrementDate = (startDate, daysToAdd) => {
     const newdate = new Date();
@@ -9,13 +8,10 @@ const incrementDate = (startDate, daysToAdd) => {
     return newdate;
 };
 
-class Authentication {
-    constructor(){
-        return this;
-    }
+class Authentication extends Base{
     async getItem(id) {
-        const arr = await this.getItems();
-        return getItemSync(arr,id);
+        const filespec = path.join(__dirname, 'data.json');
+        return await super.getItem(id,filespec);
     }
 
     getExpirationDays() {
@@ -26,7 +22,7 @@ class Authentication {
 
     async getItems() {
         const filespec = path.join(__dirname, 'data.json');
-        return getItems(filespec);
+        return super.getItems(filespec);
     }
 
     async setItem(item) {
@@ -41,9 +37,9 @@ class Authentication {
         item.jwtToken = createToken(item);
         item.expireDate = incrementDate(new Date(), this.getExpirationDays());
 
-        const filespec = path.join(__dirname, 'data.json');
         const model = this.getDataModelSync();
-        const result =  await setItem(filespec, item, model);
+        const filespec = path.join(__dirname, 'data.json');
+        const result =  await super.setItem(item,filespec,model);
         return result;
     }
 

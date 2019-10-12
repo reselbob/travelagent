@@ -1,23 +1,12 @@
-const {getItems,getItemSync, setItem} = require('../utilities');
 const path = require('path');
-const uuidv4 = require('uuid/v4');
-
-class Auto {
-    constructor(){
-        return this;
-    }
-    async getItem(name) {
-        const arr = await this.getItems();
-        return getItemSync(arr,name);
-
+const Base = require('../base');
+class Auto extends Base{
+    getInventoryItems() {
+        const filespec = path.join(__dirname, 'inventory.json');
+        return super.getItems(filespec);
     }
 
-    async getItems() {
-        const filespec = path.join(__dirname, 'data.json');
-        return getItems(filespec);
-    }
-
-    getDataModelSync(){
+    getDataModelSync() {
         const obj = {};
         obj.vendor;
         obj.make;

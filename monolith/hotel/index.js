@@ -1,27 +1,12 @@
-const {getItems,getItemSync, setItem} = require('../utilities');
 const path = require('path');
-const uuidv4 = require('uuid/v4');
-
-class Hotel {
-    constructor(){
-        return this;
-    }
-    async getItem(name) {
-        const arr = await this.getItems();
-        return getItemSync(arr,name);
-
+const Base = require('../base');
+class Hotel extends Base{
+    getInventoryItems() {
+        const filespec = path.join(__dirname, 'inventory.json');
+        return super.getItems(filespec);
     }
 
-    async getItems() {
-        const filespec = path.join(__dirname, 'data.json');
-        return getItems(filespec);
-    }
-
-    async setItem(item) {
-        const filespec = path.join(__dirname, 'data.json');
-        return await setItem(filespec, item,  this.getDataModelSync());
-    }
-    getDataModelSync(){
+    getDataModelSync() {
         const obj = {};
         obj.vendor;
         obj.checkIn;
@@ -31,4 +16,5 @@ class Hotel {
         return obj;
     };
 }
+
 module.exports = Hotel;

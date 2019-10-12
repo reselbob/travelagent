@@ -8,13 +8,13 @@ const Reservation = require('./reservations');
 const Users = require('./users');
 const Authentication = require('./authentication/model');
 const port = process.env.APP_PORT || 3000;
-const {validateItem} = require('./utilities');
+//const {validateItem} = require('./utilities');
 
 const agent = 'Reselbob Travel';
 
 dispatcher.onGet("/airline", async (req, res) => {
     const airline = new Airline();
-    const vendors = await airline.getItems();
+    const vendors = await airline.getInventoryItems();
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({service: 'airline', vendors });
     res.end(str);
@@ -22,7 +22,7 @@ dispatcher.onGet("/airline", async (req, res) => {
 
 dispatcher.onGet("/hotel", async (req, res) =>  {
     const hotel = new Hotel();
-    const vendors = await hotel.getItems();
+    const vendors = await hotel.getInventoryItems();
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({service: 'hotel',vendors});
     res.end(str);
@@ -30,7 +30,7 @@ dispatcher.onGet("/hotel", async (req, res) =>  {
 
 dispatcher.onGet("/auto", async (req, res) =>  {
     const auto = new Auto();
-    const vendors = await auto.getItems();
+    const vendors = await auto.getInventoryItems();
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({service: 'auto', vendors});
     res.end(str);
