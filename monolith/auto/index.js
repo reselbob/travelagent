@@ -6,6 +6,10 @@ class Auto extends Base{
         return super.getItems(filespec);
     }
 
+    getBestDeal(){
+        return super.getBestDeal('AUTO');
+    }
+
     getDataModelSync() {
         const obj = {};
         obj.vendor;

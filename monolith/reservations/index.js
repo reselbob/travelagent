@@ -27,6 +27,10 @@ class Reservations extends Base{
         return result;
     }
 
+    getBestDeal(){
+        return super.getBestDeal('ALL');
+    }
+
     getDataModelSync(){
         const obj = {};
         obj.user;

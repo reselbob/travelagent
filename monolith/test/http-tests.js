@@ -72,6 +72,20 @@ describe('HTTP Tests: ', () => {
             });
     });
 
+    it('Can get reservations best deak', function (done) {
+        supertest(server)
+            .get('/reservations/bestDeal')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body).to.be.an('object');
+                expect(res.body.data).to.be.an('array');
+                expect(res.body.service).to.equal('reservations');
+                done();
+            });
+    });
+
     it('Can get a reservation', async () => {
         const item = sample(await new Reservation().getItems());
         const url = `/reservations?id=${item.id}`;

@@ -6,6 +6,10 @@ class Hotel extends Base{
         return super.getItems(filespec);
     }
 
+    getBestDeal(){
+        return super.getBestDeal('HOTEL');
+    }
+
     getDataModelSync() {
         const obj = {};
         obj.vendor;

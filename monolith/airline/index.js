@@ -7,6 +7,10 @@ class Airline extends Base{
         return super.getItems(filespec);
     }
 
+    getBestDeal(){
+        return super.getBestDeal('AIRLINE');
+    }
+
    getDataModelSync() {
         const obj = {};
         obj.id;

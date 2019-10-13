@@ -20,6 +20,14 @@ dispatcher.onGet("/airline", async (req, res) => {
     res.end(str);
 });
 
+dispatcher.onGet("/airline/bestDeal", async (req, res) => {
+    const airline = new Airline();
+    const deal = await airline.getBestDeal();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({service: 'airlineBestDeal', deal });
+    res.end(str);
+});
+
 dispatcher.onGet("/hotel", async (req, res) =>  {
     const hotel = new Hotel();
     const vendors = await hotel.getInventoryItems();
@@ -28,11 +36,27 @@ dispatcher.onGet("/hotel", async (req, res) =>  {
     res.end(str);
 });
 
+dispatcher.onGet("/hotel/bestDeal", async (req, res) => {
+    const hotel = new Hotel();
+    const deal = await hotel.getBestDeal();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({service: 'hotelBestDeal', deal });
+    res.end(str);
+});
+
 dispatcher.onGet("/auto", async (req, res) =>  {
     const auto = new Auto();
     const vendors = await auto.getInventoryItems();
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({service: 'auto', vendors});
+    res.end(str);
+});
+
+dispatcher.onGet("/auto/bestDeal", async (req, res) => {
+    const auto = new Auto();
+    const deal = await auto.getBestDeal();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({service: 'autoBestDeal', deal });
     res.end(str);
 });
 
@@ -53,6 +77,13 @@ dispatcher.onGet("/reservations", async (req, res) => {
 
     console.log({message: 'Return reservations', data});
     const str = JSON.stringify({service: 'reservations', data});
+    res.end(str);
+});
+
+dispatcher.onGet("/reservations/bestDeal", async (req, res) => {
+    const deal = new Reservation().getBestDeal('ALL');
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({service: 'reservationBestDeal', deal });
     res.end(str);
 });
 
