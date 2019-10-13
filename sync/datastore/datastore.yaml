@@ -15,6 +15,19 @@ spec:
           image: bitnami/mongodb:latest
           ports:
             - containerPort: 27017
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: observer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: observer
+    spec:
+      containers:
         - name: nginx
           image: nginx
           ports:
