@@ -168,7 +168,7 @@ describe('HTTP Tests: ', () => {
                 if (res.statusCode !== 200) return done(res);
                 expect(res.body).to.be.an('object');
                 expect(res.body.service).to.equal('reservations');
-          });
+            });
     });
 
     it('Can post users', async () => {
