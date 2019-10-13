@@ -22,9 +22,9 @@ dispatcher.onGet("/airline", async (req, res) => {
 
 dispatcher.onGet("/airline/bestDeal", async (req, res) => {
     const airline = new Airline();
-    const deal = await airline.getBestDeal();
+    const data = await airline.getBestDeal();
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({service: 'airlineBestDeal', deal });
+    const str = JSON.stringify({service: 'airlineBestDeal', data });
     res.end(str);
 });
 
@@ -38,9 +38,9 @@ dispatcher.onGet("/hotel", async (req, res) =>  {
 
 dispatcher.onGet("/hotel/bestDeal", async (req, res) => {
     const hotel = new Hotel();
-    const deal = await hotel.getBestDeal();
+    const data = await hotel.getBestDeal('HOTEL');
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({service: 'hotelBestDeal', deal });
+    const str = JSON.stringify({service: 'hotelBestDeal', data });
     res.end(str);
 });
 
@@ -54,9 +54,9 @@ dispatcher.onGet("/auto", async (req, res) =>  {
 
 dispatcher.onGet("/auto/bestDeal", async (req, res) => {
     const auto = new Auto();
-    const deal = await auto.getBestDeal();
+    const data = await auto.getBestDeal();
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({service: 'autoBestDeal', deal });
+    const str = JSON.stringify({service: 'autoBestDeal', data });
     res.end(str);
 });
 
@@ -81,9 +81,9 @@ dispatcher.onGet("/reservations", async (req, res) => {
 });
 
 dispatcher.onGet("/reservations/bestDeal", async (req, res) => {
-    const deal = new Reservation().getBestDeal('ALL');
+    const data = await new Reservation().getBestDeal('ALL');
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({service: 'reservationBestDeal', deal });
+    const str = JSON.stringify({service: 'reservationBestDeal', data });
     res.end(str);
 });
 

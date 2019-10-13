@@ -27,8 +27,8 @@ class Reservations extends Base{
         return result;
     }
 
-    getBestDeal(){
-        return super.getBestDeal('ALL');
+    async getBestDeal(){
+        return await super.getBestDeal('ALL');
     }
 
     getDataModelSync(){

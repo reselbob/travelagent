@@ -31,6 +31,20 @@ describe('HTTP Tests: ', () => {
             });
     });
 
+    it('Can get auto best deal', function (done) {
+        supertest(server)
+            .get('/auto/bestDeal')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body).to.be.an('object');
+                expect(res.body.data).to.be.an('object');
+                expect(res.body.service).to.equal('autoBestDeal');
+                done();
+            });
+    });
+
     it('Can get airline', function (done) {
         //Go get all the lists
         supertest(server)
@@ -45,6 +59,20 @@ describe('HTTP Tests: ', () => {
                 done();
             });
     });
+    it('Can get airline best deal', function (done) {
+        supertest(server)
+            .get('/airline/bestDeal')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body).to.be.an('object');
+                expect(res.body.data).to.be.an('object');
+                expect(res.body.service).to.equal('airlineBestDeal');
+                done();
+            });
+    });
+
     it('Can get hotel', function (done) {
         supertest(server)
             .get('/hotel')
@@ -58,6 +86,20 @@ describe('HTTP Tests: ', () => {
                 done();
             });
     });
+    it('Can get hotels best deal', function (done) {
+        supertest(server)
+            .get('/hotel/bestDeal')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body).to.be.an('object');
+                expect(res.body.data).to.be.an('object');
+                expect(res.body.service).to.equal('hotelBestDeal');
+                done();
+            });
+    });
+
     it('Can get reservations', function (done) {
         supertest(server)
             .get('/reservations')
@@ -72,7 +114,7 @@ describe('HTTP Tests: ', () => {
             });
     });
 
-    it('Can get reservations best deak', function (done) {
+    it('Can get reservations best deal', function (done) {
         supertest(server)
             .get('/reservations/bestDeal')
             .set('Accept', 'application/json')
@@ -80,8 +122,8 @@ describe('HTTP Tests: ', () => {
             .end((err, res) => {
                 if (err) return done(err);
                 expect(res.body).to.be.an('object');
-                expect(res.body.data).to.be.an('array');
-                expect(res.body.service).to.equal('reservations');
+                expect(res.body.data).to.be.an('object');
+                expect(res.body.service).to.equal('reservationBestDeal');
                 done();
             });
     });

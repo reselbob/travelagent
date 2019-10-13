@@ -6,8 +6,8 @@ class Hotel extends Base{
         return super.getItems(filespec);
     }
 
-    getBestDeal(){
-        return super.getBestDeal('HOTEL');
+    async getBestDeal(){
+        return await super.getBestDeal('HOTEL');
     }
 
     getDataModelSync() {

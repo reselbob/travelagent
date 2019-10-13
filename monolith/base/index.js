@@ -1,7 +1,7 @@
 const fs = require('fs');
 const util = require('util');
 const uuidv4 = require('uuid/v4');
-const {createReservation} = require('../utilities/seeder');
+
 class Base {
     async getItems(fileSpec){
         const readFile = util.promisify(fs.readFile);
@@ -47,17 +47,22 @@ class Base {
             });
     };
 
-    getDealTypes(){
+    getDealTypesSync(){
         return ['AUTO', 'AIRLINE', 'HOTEL', 'ALL'];
     }
 
-    getBestDeal(dealType){
-        const reservation = createReservation();
+    async getBestDeal(dealType){
+        const {createReservation} = require('../utilities/seeder');
+        const reservation = await createReservation();
         delete reservation.user;
-        switch (dealType.toUpper) {
-            case 'AUTO': return reservation.auto;
-            case 'HOTEL': return reservation.hotel;
-            case 'AIRLINE': return reservation.airline;
+        const typ = dealType.toUpperCase();
+        switch (typ) {
+            case 'AUTO':
+                return reservation.auto;
+            case 'HOTEL':
+                return reservation.hotel;
+            case 'AIRLINE':
+                return reservation.airline;
         }
         return reservation;
 

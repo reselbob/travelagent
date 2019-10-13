@@ -7,8 +7,8 @@ class Airline extends Base{
         return super.getItems(filespec);
     }
 
-    getBestDeal(){
-        return super.getBestDeal('AIRLINE');
+    async getBestDeal(){
+        return await super.getBestDeal('AIRLINE');
     }
 
    getDataModelSync() {

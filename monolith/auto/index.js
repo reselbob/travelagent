@@ -6,8 +6,8 @@ class Auto extends Base{
         return super.getItems(filespec);
     }
 
-    getBestDeal(){
-        return super.getBestDeal('AUTO');
+    async getBestDeal(){
+        return await super.getBestDeal('AUTO');
     }
 
     getDataModelSync() {
