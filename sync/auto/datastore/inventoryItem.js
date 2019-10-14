@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const inventoryItem = mongoose.Schema({
     auto: {
-        make: String,
-        model: String,
-        year: Date,
-        plate: String
+        make: {type: String, required: true},
+        model: {type: String, required: true},
+        year: {type: Date, required: true},
     },
-    vendor: String,
+    vendor: {type: String, required: true},
     created: {
         type: Date,
         default: Date.now

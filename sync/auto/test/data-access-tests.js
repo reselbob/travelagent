@@ -40,9 +40,9 @@ describe('Data Access Tests', () => {
     it('Can save new Inventory Item', (done) => {
         getInventoryItem()
             .then(item => {
-                item.auto.make = 'BMW';
-                item.auto.model = '330i';
-                item.auto.year = '2017';
+                item.auto.make = 'Audi';
+                item.auto.model = '5000';
+                item.auto.year = '2018';
                 item.vendor = 'ENTERPRISE';
                 item.save()
                     .then(result => {
