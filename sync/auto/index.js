@@ -4,14 +4,15 @@ const port = process.env.APP_PORT || 3000;
 
 const {getInventoryItem, getInventoryItems, getReservation} = require('./datastore');
 
-
-
 app.get('/inventoryItems/search', async (req, res) => {
-    res.send('Hello World');
+    res.send('Not Implemented');
 });
 
 app.get('/inventoryItems/:id', async (req, res) => {
-    res.send("id is set to " + req.params.id);
+    const data = await getInventoryItem(req.params.id);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
 });
 
 app.get('/inventoryItems', async (req, res) => {
