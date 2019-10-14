@@ -4,6 +4,9 @@
 
 Let's use MLAB, it's free!
 
+*BE ADVISED* You'll need to create an `.env` file in the root of `datastore` that
+has the environment variables you need to get into `MLab`
+
 https://mlab.com/home
 
 ![Mlab setup 1](images/mlab/mlab-01.png)
