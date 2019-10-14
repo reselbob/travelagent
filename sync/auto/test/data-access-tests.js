@@ -40,14 +40,14 @@ describe('Data Access Tests', () => {
     it('Can save new Inventory Item', (done) => {
         getInventoryItem()
             .then(item => {
-                item.auto.make = 'Kia';
-                item.auto.model = 'Soul';
-                item.auto.year = '2015';
-                item.vendor = 'NATIONAL';
-                /*item.save()
+                item.auto.make = 'BMW';
+                item.auto.model = '330i';
+                item.auto.year = '2017';
+                item.vendor = 'ENTERPRISE';
+                item.save()
                     .then(result => {
                         console.log(result);
-                    });*/
+                    });
                 done();
             })
             .catch(err => {
@@ -66,6 +66,5 @@ describe('Data Access Tests', () => {
                 done(err);
             });
     });
-
 
 });
