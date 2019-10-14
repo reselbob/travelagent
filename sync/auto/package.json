@@ -1,0 +1,23 @@
+{
+  "name": "auto",
+  "version": "1.0.0",
+  "description": "A microservice for auto rental",
+  "main": "index.js",
+  "directories": {
+    "test": "mocha test"
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "mongoose": "^5.7.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "faker": "^4.1.0",
+    "mocha": "^6.2.1"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Bob Reselman <reselbob@gmail.com>",
+  "license": "MIT"
+}
