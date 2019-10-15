@@ -2,13 +2,61 @@ const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 3000;
 
-const {getInventoryItem, getInventoryItems, getReservation} = require('./datastore');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+const {getInventoryItem, getInventoryItems, getReservation, getReservations} = require('./datastore');
+
+app.get('/reservations/:id', async (req, res) => {
+    const data = await getReservation(req.params.id);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
+});
+
+app.get('/reservations', async (req, res) => {
+    const data = await getReservations();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
+});
+
+app.post('/reservations', async (req, res) => {
+    console.log(req.body);
+    const data = req.body;
+    const reservation = await getReservation();
+    for (let prop in data) {
+        if (data.hasOwnProperty(prop)) {
+            reservation[prop] = data[prop];
+        }
+    }
+    let error;
+    const result = await reservation.save().catch(err => {error = err});
+    let statusCode = 200;
+    if(error){
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({error });
+        console.error(str);
+        res.end(str);
+    }
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data:result });
+    console.log({method: 'post', data:result });
+    res.end(str);
+});
 
 app.get('/inventoryItems/search', async (req, res) => {
     res.send('Not Implemented');
 });
 
 app.get('/inventoryItems/:id', async (req, res) => {
+    const data = await getInventoryItem(req.params.id);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
+});
+
+app.get('/inventoryItems/', async (req, res) => {
     const data = await getInventoryItem(req.params.id);
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({data });
@@ -23,12 +71,30 @@ app.get('/inventoryItems', async (req, res) => {
 });
 
 app.post('/inventoryItems/', async (req, res) => {
-    res.send('Not Implemented');
+    console.log(req.body);
+    const data = req.body;
+    const item = await getInventoryItem();
+    for (let prop in data) {
+        item[prop] = data[prop];
+    };
+    let error;
+    const result = await item.save().catch(err => {error = err});
+    let statusCode = 200;
+    if(error){
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({error });
+        console.error(str);
+        res.end(str);
+    }
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data:result });
+    console.log({method: 'post', data:result });
+    res.end(str);
 });
 
 
 
-const agent = 'Auto';
+const agent = 'Airline';
 
 var server = app.listen(port, function () {
     const host = server.address().address;

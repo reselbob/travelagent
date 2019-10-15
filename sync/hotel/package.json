@@ -1,24 +1,23 @@
 {
-  "name": "auto",
+  "name": "hotel",
   "version": "1.0.0",
-  "description": "A microservice for auto rental",
+  "description": "A microservice that represents hotels and hotel reservations.",
   "main": "index.js",
   "directories": {
-    "test": "mocha test"
+    "test": "test"
   },
   "dependencies": {
-    "dotenv": "^8.1.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.7.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "faker": "^4.1.0",
     "mocha": "^6.2.1",
-    "mongoose": "^5.7.5",
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "test"
+    "test": "mocha test"
   },
   "author": "Bob Reselman <reselbob@gmail.com>",
   "license": "MIT"

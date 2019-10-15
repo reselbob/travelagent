@@ -2,7 +2,23 @@ const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 3000;
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 const {getInventoryItem, getInventoryItems, getReservation} = require('./datastore');
+
+app.get('/reservations/:id', async (req, res) => {
+    res.send('Not Implemented');
+});
+
+app.get('/reservations', async (req, res) => {
+    res.send('Not Implemented');
+});
+
+app.post('/reservations', async (req, res) => {
+    res.send('Not Implemented');
+});
 
 app.get('/inventoryItems/search', async (req, res) => {
     res.send('Not Implemented');
@@ -28,7 +44,7 @@ app.post('/inventoryItems/', async (req, res) => {
 
 
 
-const agent = 'Auto';
+const agent = 'Hotel';
 
 var server = app.listen(port, function () {
     const host = server.address().address;

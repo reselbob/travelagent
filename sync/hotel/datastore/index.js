@@ -9,6 +9,13 @@ const moption = {
 
 if(!process.env.MONGODB_URL)throw new Error('The required environment variable, MONGODB_URL does not exist or has no value');
 
+const getInventoryItemModel = async ()=> {
+    return InventoryItem;
+};
+
+const getReservationModel = async ()=> {
+    return Reservation;
+};
 
 const getInventoryItem = async (id) =>{
     console.log(id);
@@ -38,5 +45,5 @@ const getReservation = async (id) =>{
     return item;
 };
 
-module.exports = {getInventoryItem, getInventoryItems, getReservation};
+module.exports = {getInventoryItem, getInventoryItems, getInventoryItemModel,getReservation,getReservationModel};
 

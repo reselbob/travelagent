@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const reservation = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    user:{
+        firstName: {type: String, required: true},
+        lastName: {type: String, required: true},
+        email: {type: String, required: true},
+        phone: {type: String, required: true}
+    },
     auto: {
         make: {type: String, required: true},
         model: {type: String, required: true},

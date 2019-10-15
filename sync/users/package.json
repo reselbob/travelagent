@@ -1,11 +1,16 @@
 {
-  "name": "airline",
+  "name": "users",
   "version": "1.0.0",
-  "description": "A microservice for airline rental",
+  "description": "A microservice for users",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Bob Reselman <reselbob@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.7.5"
@@ -15,10 +20,5 @@
     "faker": "^4.1.0",
     "mocha": "^6.2.1",
     "supertest": "^4.0.2"
-  },
-  "scripts": {
-    "test": "mocha test"
-  },
-  "author": "Bob Reselman <reselbob@gmail.com>",
-  "license": "MIT"
+  }
 }
