@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-const {getInventoryItem, getInventoryItems, getReservation} = require('./datastore');
+const {getInventoryItem, getInventoryItems, getReservations,getReservation} = require('./datastore');
 const {getBestDeal} = require('./lib');
 
 app.get('/bestDeal', async (req, res) => {
@@ -17,13 +17,17 @@ app.get('/bestDeal', async (req, res) => {
 });
 
 app.get('/reservations/:id', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    const data = await getReservation(req.params.id);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
 });
 
 app.get('/reservations', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    const data = await getReservations();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
 });
 
 app.post('/reservations', async (req, res) => {
@@ -51,8 +55,34 @@ app.get('/inventoryItems', async (req, res) => {
 });
 
 app.post('/inventoryItems/', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    console.log(req.body);
+    const data = req.body;
+    const item = await getInventoryItem();
+    item.property = {
+        address_1: data.property.address_1,
+        address_2: data.property.address_2,
+        city: data.property.city,
+        state_province: data.property.state_provincecity,
+        postal_code: data.property.postal_code,
+        country: data.property.country,
+        phone: data.property.phone,
+    };
+    item.vendor = data.vendor;
+
+    let error;
+    //TODO Complete this
+    //const result = await item.save().catch(err => {error = err});
+
+    if(error){
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({error });
+        console.error(str);
+        res.end(str);
+    }
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data:result });
+    console.log({data:result });
+    res.end(str);
 });
 
 const agent = 'Hotel';

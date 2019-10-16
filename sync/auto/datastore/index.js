@@ -38,5 +38,13 @@ const getReservation = async (id) =>{
     return item;
 };
 
-module.exports = {getInventoryItem, getInventoryItems, getReservation};
+const getReservations = async () =>{
+    const item  = await mongoose.connect(process.env.MONGODB_URL,moption)
+        .then (result => {
+            return Reservation.find({});
+        });
+    return item;
+};
+
+module.exports = {getInventoryItem, getInventoryItems, getReservation, getReservations};
 

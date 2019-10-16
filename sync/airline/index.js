@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 3000;
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const {getInventoryItem, getInventoryItems, getReservation, getReservations} = require('./datastore');
@@ -34,13 +34,22 @@ app.post('/reservations', async (req, res) => {
     console.log(req.body);
     const data = req.body;
     const reservation = await getReservation();
-    for (let prop in data) {
-        if (data.hasOwnProperty(prop)) {
-            reservation[prop] = data[prop];
-        }
-    }
-    let error;
-    const result = await reservation.save().catch(err => {error = err});
+    reservation.user = {
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        email: data.user.email,
+        phone: data.user.phone,
+    };
+    reservation.airline =  data.airline;
+    reservation.flightNumber =  data.flightNumber;
+    reservation.from =  data.from;
+    reservation.to =  data.to;
+    reservation.vendor =  data.vendor;
+    reservation.departure =  data.departure;
+    reservation.arrival =  data.arrival;
+    reservation.price =  data.price;
+    //TODO Complete this
+    //const result = await reservation.save().catch(err => {error = err});
     let statusCode = 200;
     if(error){
         res.writeHead(500, {'Content-Type': 'application/json'});
@@ -48,7 +57,7 @@ app.post('/reservations', async (req, res) => {
         console.error(str);
         res.end(str);
     }
-    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.writeHead(statusCode, {'Content-Type': 'application/json'});
     const str = JSON.stringify({data:result });
     console.log({method: 'post', data:result });
     res.end(str);
@@ -86,10 +95,9 @@ app.post('/inventoryItems/', async (req, res) => {
     const item = await getInventoryItem();
     for (let prop in data) {
         item[prop] = data[prop];
-    };
+    }
     let error;
     const result = await item.save().catch(err => {error = err});
-    let statusCode = 200;
     if(error){
         res.writeHead(500, {'Content-Type': 'application/json'});
         const str = JSON.stringify({error });
@@ -103,7 +111,7 @@ app.post('/inventoryItems/', async (req, res) => {
 });
 const agent = 'Airline';
 
-var server = app.listen(port, function () {
+const server = app.listen(port, function () {
     const host = server.address().address;
     const port = server.address().port;
 

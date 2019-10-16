@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 3000;
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-const {getInventoryItem, getInventoryItems, getReservation} = require('./datastore');
+const {getInventoryItem, getInventoryItems, getReservation, getReservations} = require('./datastore');
 const {getBestDeal} = require('./lib');
 
 app.get('/bestDeal', async (req, res) => {
@@ -18,18 +18,53 @@ app.get('/bestDeal', async (req, res) => {
 
 
 app.get('/reservations/:id', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    const data = await getReservation(req.params.id);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
 });
 
 app.get('/reservations', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    const data = await getReservations();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
 });
 
 app.post('/reservations', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    console.log(req.body);
+    const data = req.body;
+    const reservation = await getReservation();
+    reservation.user = {
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        email: data.user.email,
+        phone: data.user.phone,
+    };
+    reservation.auto = {
+        make: data.auto.make,
+        model: data.auto.model,
+        year: data.auto.year,
+    };
+    reservation.vendor =  data.vendor;
+    reservation.checkIn =  data.checkIn;
+    reservation.checkOut =  data.checkOut;
+    reservation.price =  data.price;
+
+    let error;
+    //TODO Complete this
+    //const result = await reservation.save().catch(err => {error = err});
+    
+    if(error){
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({error });
+        console.error(str);
+        res.end(str);
+    }
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data:result });
+    console.log({data:result });
+    res.end(str);
 });
 
 app.get('/inventoryItems/search', async (req, res) => {
@@ -52,12 +87,34 @@ app.get('/inventoryItems', async (req, res) => {
 });
 
 app.post('/inventoryItems/', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    console.log(req.body);
+    const data = req.body;
+    const item = await getInventoryItem();
+    item.auto = {
+        make: data.auto.make,
+        model: data.auto.model,
+        year: data.auto.year,
+    };
+    item.vendor = data.vendor;
+
+    let error;
+    //TODO Complete this
+    //const result = await item.save().catch(err => {error = err});
+
+    if(error){
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({error });
+        console.error(str);
+        res.end(str);
+    }
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data:result });
+    console.log({data:result });
+    res.end(str);
 });
 const agent = 'Auto';
 
-var server = app.listen(port, function () {
+const server = app.listen(port, function () {
     const host = server.address().address;
     const port = server.address().port;
 

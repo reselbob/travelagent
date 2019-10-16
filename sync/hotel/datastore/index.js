@@ -9,14 +9,6 @@ const moption = {
 
 if(!process.env.MONGODB_URL)throw new Error('The required environment variable, MONGODB_URL does not exist or has no value');
 
-const getInventoryItemModel = async ()=> {
-    return InventoryItem;
-};
-
-const getReservationModel = async ()=> {
-    return Reservation;
-};
-
 const getInventoryItem = async (id) =>{
     console.log(id);
     const item  = await mongoose.connect(process.env.MONGODB_URL,moption)
@@ -26,7 +18,6 @@ const getInventoryItem = async (id) =>{
         })
     return item;
 };
-
 
 const getInventoryItems = async () =>{
     const items  = await mongoose.connect(process.env.MONGODB_URL,moption)
@@ -45,5 +36,13 @@ const getReservation = async (id) =>{
     return item;
 };
 
-module.exports = {getInventoryItem, getInventoryItems, getInventoryItemModel,getReservation,getReservationModel};
+const getReservations = async () =>{
+    const item  = await mongoose.connect(process.env.MONGODB_URL,moption)
+        .then (result => {
+            return Reservation.find({});
+        });
+    return item;
+};
+
+module.exports = {getInventoryItem, getInventoryItems,getReservation,getReservations};
 

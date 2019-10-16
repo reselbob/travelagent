@@ -37,7 +37,7 @@ const getReservation = async (id) =>{
     return item;
 };
 
-const getReservations = async (id) =>{
+const getReservations = async () =>{
     const item  = await mongoose.connect(process.env.MONGODB_URL,moption)
         .then (result => {
             return Reservation.find({});
