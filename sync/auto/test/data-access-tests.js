@@ -11,6 +11,7 @@ const url = process.env.MONGODB_URL;
 const dbName = process.env.MONGODB_DB_NAME;
 
 describe('Data Access Tests Users', () => {
+    /*
     it('Can get new Inventory Item by Id', (done) => {
         getInventoryItem('5da3f977393d9f4b255b6d03')
             .then(item => {
@@ -25,6 +26,8 @@ describe('Data Access Tests Users', () => {
                 done(err);
             });
     });
+
+     */
     it('Can get new Inventory Item', (done) => {
         getInventoryItem()
             .then(item => {
@@ -36,7 +39,7 @@ describe('Data Access Tests Users', () => {
                 done(err);
             });
     });
-
+/*
     it('Can save new Inventory Item', (done) => {
         getInventoryItem()
             .then(item => {
@@ -55,6 +58,7 @@ describe('Data Access Tests Users', () => {
                 done(err);
             });
     });
+ */
     it('Can get new Reservation', (done) => {
         getReservation()
             .then(item => {

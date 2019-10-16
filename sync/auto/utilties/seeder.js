@@ -1,5 +1,5 @@
-
-const uuidv4 = require('uuid/v4');
+const {getInventoryItem} =  require('../datastore');
+//const uuidv4 = require('uuid/v4');
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 const random = (max) => {return Math.floor(Math.random()* max)};
 const incrementDate = (startDate, daysToAdd) => {
@@ -8,7 +8,7 @@ const incrementDate = (startDate, daysToAdd) => {
     return newdate;
 };
 
-const vendors = ['ENTERPRISE', 'NATIONAL', 'AVIS', 'BUDGET'];
+const vendors = ['ENTERPRISE', 'NATIONAL', 'AVIS', 'BUDGET', 'DOLLAR'];
 
 const autos = [
     {
@@ -47,7 +47,20 @@ const createReservation = async () => {
     reservation.checkOut = endDate;
     reservation.price = random(100) * daysToAdd;
 
-}
+};
+
+const seedAutoInventory = async () => {
+    for(let i = 0; i< vendors.length; i++){
+        autos.forEach( async auto =>{
+            const item = await getInventoryItem();
+            item.vendor = vendors[i];
+            item.auto = auto;
+            console.log(item);
+            await item.save();
+        });
+
+    }
+};
 
 const seed = async () => {
 
@@ -79,6 +92,7 @@ const seed = async () => {
     console.log({reservationListCount: reservationList.length, userCount:userCount.length})
 };
 //fire it off here
-seed();
+//seed();
+seedAutoInventory();
 
-module.exports = {seed,createReservation};
+module.exports = {seed,createReservation,seedAutoInventory};
