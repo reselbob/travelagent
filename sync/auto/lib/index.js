@@ -13,7 +13,10 @@ const daysToAdd = random(15);
 const endDate = incrementDate(startDate,daysToAdd);
 
 const getBestDeal = async() => {
-    const deal = sample(await getInventoryItems());
+    const data = sample(await getInventoryItems());
+    const deal = {};
+    deal.auto = {make: data.auto.make, model: data.auto.model, year: data.auto.year};
+    deal.vendor = data.vendor;
     deal.checkIn = startDate;
     deal.checkOut = endDate;
     deal.price = random(50) * daysToAdd;
