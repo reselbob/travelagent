@@ -18,20 +18,23 @@ app.get('/bestDeal', async (req, res) => {
 
 
 app.get('/reservations/:id', async (req, res) => {
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    res.send('Not Implemented');
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    res.send(JSON.stringify({message:'Not Implemented'}));
 });
 
 app.get('/reservations', async (req, res) => {
-    res.send('Not Implemented');
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    res.send(JSON.stringify({message:'Not Implemented'}));
 });
 
 app.post('/reservations', async (req, res) => {
-    res.send('Not Implemented');
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    res.send(JSON.stringify({message:'Not Implemented'}));
 });
 
 app.get('/inventoryItems/search', async (req, res) => {
-    res.send('Not Implemented');
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    res.send(JSON.stringify({message:'Not Implemented'}));
 });
 
 app.get('/inventoryItems/:id', async (req, res) => {
@@ -49,11 +52,9 @@ app.get('/inventoryItems', async (req, res) => {
 });
 
 app.post('/inventoryItems/', async (req, res) => {
-    res.send('Not Implemented');
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    res.send(JSON.stringify({message:'Not Implemented'}));
 });
-
-
-
 const agent = 'Auto';
 
 var server = app.listen(port, function () {

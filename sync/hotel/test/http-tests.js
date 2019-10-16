@@ -14,6 +14,20 @@ describe('HTTP Tests: ', () => {
         console.log('testing done');
     });
 
+    it('Can get bestDeal', function (done) {
+        //Go get all the lists
+        supertest(server)
+            .get('/bestDeal')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body).to.be.an('object');
+                expect(res.body.data).to.be.an('object');
+                done();
+            });
+    });
+
     it('Can get hotel inventory', function (done) {
         //Go get all the lists
         supertest(server)

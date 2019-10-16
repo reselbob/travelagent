@@ -55,7 +55,8 @@ app.post('/reservations', async (req, res) => {
 });
 
 app.get('/inventoryItems/search', async (req, res) => {
-    res.send('Not Implemented');
+    res.writeHead(501, {'Content-Type': 'application/json'});
+    res.send(JSON.stringify({message:'Not Implemented'}));
 });
 
 app.get('/inventoryItems/:id', async (req, res) => {
@@ -100,9 +101,6 @@ app.post('/inventoryItems/', async (req, res) => {
     console.log({method: 'post', data:result });
     res.end(str);
 });
-
-
-
 const agent = 'Airline';
 
 var server = app.listen(port, function () {
