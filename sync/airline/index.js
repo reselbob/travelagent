@@ -6,6 +6,15 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const {getInventoryItem, getInventoryItems, getReservation, getReservations} = require('./datastore');
+const {getBestDeal} = require('./lib');
+
+app.get('/bestDeal', async (req, res) => {
+    const data = await getBestDeal();
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data });
+    res.end(str);
+});
+
 
 app.get('/reservations/:id', async (req, res) => {
     const data = await getReservation(req.params.id);
