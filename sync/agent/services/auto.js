@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const url = 'http://'+ process.env['AUTO_SERVICE_URL'];
+const url = process.env.AUTO_SERVICE_URL;
 
 console.log(url);
 const getBestDeal = async ()=> { return await axios.get(`${url}/bestDeal`)};

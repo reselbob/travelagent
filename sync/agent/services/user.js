@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const url = 'http://'+ process.env['USER_SERVICE_URL'];
+const url = process.env.USER_SERVICE_URL;
 
 const getUsers = async ()=> { return await axios.get(`${url}/users`)};
 const getUser = async (id)=>  { return await axios.get(`${url}/users/${id}`)};
