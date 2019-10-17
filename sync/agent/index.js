@@ -37,13 +37,21 @@ if(badHosts.length > 0){
     throw new Error(str);
 }
 
-
+const flatted = require('flatted');
 const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 3000;
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+const myLogger = function (req, res, next) {
+    const output = {travelAgentApp: 'agent',createDate: new Date(), req,res};
+    console.log(flatted.stringify(output));
+    next()
+}
+
+app.use(myLogger);
 
 const {getReservations,getReservation} = require('./datastore');
 const microservices = require('./services');
