@@ -61,7 +61,7 @@ const agent = 'Way Cool Travel Agent';
 
 app.get('/bestDeal/:service', async (req, res) => {
     const dealmakers = ['AIRLINE','AUTO','HOTEL'];
-    if (dealmakers.indexOf(req.params.service) === -1){
+    if (dealmakers.indexOf(req.params.service) !== -1){
         res.writeHead(400, {'Content-Type': 'application/json'});
         const str = JSON.stringify({message:'Unsupported Service Type', service:  req.params.service});
         console.error({str});
