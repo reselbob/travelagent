@@ -24,9 +24,10 @@ const badHosts = [];
 services.forEach(async (service) => {
     const url = `http://${!process.env[`${service}_SERVICE_URL`]}`;
     if(!process.env[`${service}_SERVICE_URL`])missingUrls.push(`${service}_SERVICE_URL`);
-    await pingHost(url)
+    await ping.promise.probe(url)
         .then(result => {
-            if(!result.alive) badHosts.push({err,url});
+            console.log({url,result})
+            if(!result.alive) badHosts.push({url});
         })
 });
 
