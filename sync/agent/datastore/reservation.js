@@ -6,14 +6,9 @@ const reservation = mongoose.Schema({
         email: {type: String, required: true},
         phone: {type: String, required: true},
     },
-    airline: {type: String, required: true},
-    flightNumber: {type: Number, required: true},
-    from: {type: String, required: true},
-    to: {type: String, required: true},
-    vendor: {type: String, required: true},
-    departure:  {type: Date, required: true},
-    arrival:  {type: Date, required: true},
-    price:  {type: mongoose.Decimal128, required: true},
+    airline:{},
+    auto: {},
+    hotel: {},
     created: {
         type: Date,
         default: Date.now
