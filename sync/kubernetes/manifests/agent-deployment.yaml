@@ -33,7 +33,7 @@ spec:
             - name: HOTEL_SERVICE_URL
               value: "http://hotel"
             - name: USER_SERVICE_URL
-              value: "http://user"
+              value: "http://users"
       initContainers:
         - name: init-myservice
           image: busybox:1.31
