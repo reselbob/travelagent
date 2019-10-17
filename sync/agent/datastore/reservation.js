@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
 const reservation = mongoose.Schema({
-    user:{
-        firstName: {type: String, required: true},
-        lastName: {type: String, required: true},
-        email: {type: String, required: true},
-        phone: {type: String, required: true},
-    },
-    airline:{},
-    auto: {},
-    hotel: {},
+    user:{type: Object, required: true},
+    airline:{type: Object, required: true},
+    auto: {type: Object, required: true},
+    hotel: {type: Object, required: true},
     created: {
         type: Date,
         default: Date.now

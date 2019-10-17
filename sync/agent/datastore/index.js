@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Reservation = require('./reservation');
 
 const moption = {
     useNewUrlParser: true,
@@ -20,6 +21,21 @@ const getReservations = async () =>{
     const item  = await mongoose.connect(process.env.MONGODB_URL,moption)
         .then (result => {
             return Reservation.find({});
+        });
+    return item;
+};
+
+const setReservations = async (data) =>{
+    const item  = await mongoose.connect(process.env.MONGODB_URL,moption)
+        .then (result => {
+            return getReservation()
+        })
+        .then(reservation => {
+            reservation.user = data.user;
+            reservation.airline = data.airline;
+            reservation.hotel = data.hotel;
+            reservation.auto = data.auto;
+            return reservation.save();
         });
     return item;
 };

@@ -54,54 +54,88 @@ const myLogger = function (req, res, next) {
 
 app.use(myLogger);
 
-const {getReservations,getReservation} = require('./datastore');
+const {getReservations,getReservation,setReservation} = require('./datastore');
 const microservices = require('./services');
+
+const agent = 'Way Cool Travel Agent';
 
 app.get('/bestDeal/:service', async (req, res) => {
     const dealmakers = ['AIRLINE','AUTO','HOTEL'];
-    if (dealmakers.indexOf(req.params.service) != -1){
+    if (dealmakers.indexOf(req.params.service) === -1){
         res.writeHead(400, {'Content-Type': 'application/json'});
         const str = JSON.stringify({message:'Unsupported Service Type', service:  req.params.service});
-        console.log({str });
+        console.error({str});
         res.end(str);
+        return;
     }
     const data = await microservices[req.params.service.toLowerCase()].getBestDeal()
         .catch(err => {
             res.writeHead(400, {'Content-Type': 'application/json'});
             const str = JSON.stringify({data: err });
+            console.error(str);
             res.end(str);
+            return;
         });
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({data });
+    data.agent = agent;
+    const str = JSON.stringify({data});
+    console.log(str);
     res.end(str);
+    return;
 });
 
 app.get('/reservations/:id', async (req, res) => {
-    const data = await getReservation(req.params.id);
+    const data = await getReservation(req.params.id)
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+            res.end(str);
+            return;
+        });
     res.writeHead(200, {'Content-Type': 'application/json'});
+    data.agent = agent;
     const str = JSON.stringify({data });
+    console.log(str);
     res.end(str);
 });
 
 app.get('/reservations', async (req, res) => {
-    const data = await getReservations();
+    const data = await getReservations()
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+            res.end(str);
+            return;
+        });
     res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({data });
+    data.agent = agent;
+    const str = JSON.stringify({data});
+    console.log(str);
     res.end(str);
 });
 
 app.post('/reservations', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
+    const data = req.body;
+    const result = await setReservation(data)
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+            res.end(str);
+            return;
+        });
+    result.agent = agent;
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data: result});
+    console.log(str);
+    res.end(str);
 });
 
 
-const agent = 'Travel Agent';
+
 
 var server = app.listen(port, function () {
     const host = server.address().address;
     const port = server.address().port;
-
     console.log(`${agent} API Server started listening on listening ${host}:${port} at ${new Date()}`)
 });
 
