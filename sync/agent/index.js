@@ -18,19 +18,15 @@ services.forEach((service) => {
 });
 
 //ping the URLS to make sure they're valid
-const ping = require ("net-ping");
-const util = require('util');
-
-const session = ping.createSession();
-const pingHost = util.promisify(session.pingHost);
+const ping = require('ping');
 
 const badHosts = [];
 services.forEach(async (service) => {
     const url = `http://${!process.env[`${service}_SERVICE_URL`]}`;
     if(!process.env[`${service}_SERVICE_URL`])missingUrls.push(`${service}_SERVICE_URL`);
     await pingHost(url)
-        .catch(err => {
-            badHosts.push({err,url});
+        .then(result => {
+            if(!result.alive) badHosts.push({err,url});
         })
 });
 
