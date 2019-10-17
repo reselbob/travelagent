@@ -28,3 +28,10 @@ internal to Kubernetes. Hence, the application is facilitating internal "travel"
 with the containers representing each microservice 
 
 `sh docker-seed.sh`
+
+**Step 5**: Add your `mLab` authentication data to Kubernetes secret manifest,
+ `travelagent/sync/kubernetes/manifests/travelagent-secret.yaml`;
+
+**Step 6**: Install the Kubernetes artifacts
+
+`sh kubernetes/generate-k8s-resources.sh`

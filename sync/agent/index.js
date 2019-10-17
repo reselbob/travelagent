@@ -64,7 +64,11 @@ app.get('/bestDeal/:service', async (req, res) => {
         console.log({str });
         res.end(str);
     }
-    const data = await microservices[req.params.service.toLowerCase()].getBestDeal();
+    const data = await microservices[req.params.service.toLowerCase()].getBestDeal()
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+        });
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({data });
     res.end(str);
