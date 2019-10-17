@@ -25,7 +25,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: travelagent-data
-                  key: url
+                  key: agent_url
             - name: AIRLINE_SERVICE_URL
               value: "http://airline"
             - name: AUTO_SERVICE_URL
