@@ -25,7 +25,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: travelagent-data
-                  key: hotel_url
+                  key: hotelurl
       initContainers:
         - name: init-myservice
           image: busybox:1.31
