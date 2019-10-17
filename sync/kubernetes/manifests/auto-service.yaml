@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auto
+  labels:
+    app: auto
+spec:
+  selector:
+    app: auto
+  ports:
+  -
+    protocol: TCP
+    port: 80
+    targetPort: 3000

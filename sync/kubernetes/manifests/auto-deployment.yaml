@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 10%
+  template:
+    metadata:
+      labels:
+        app:  auto
+    spec:
+      containers:
+        - name: auto
+          image: localhost:5000/auto
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONBGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: travelagent_data
+                  key: url
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.31
+          command: ['sh', '-c', 'until nslookup auto; do echo waiting for auto; sleep 2; done;']

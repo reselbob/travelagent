@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: airline
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 10%
+  template:
+    metadata:
+      labels:
+        app:  airline
+    spec:
+      containers:
+        - name: airline
+          image: localhost:5000/airline
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONBGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: travelagent_data
+                  key: url
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.31
+          command: ['sh', '-c', 'until nslookup airline; do echo waiting for airline; sleep 2; done;']

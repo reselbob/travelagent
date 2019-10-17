@@ -1,4 +1,4 @@
-const services = ['AIRLINE_RENTAL','AUTO_RENTAL','HOTEL_RENTAL','USER'];
+const services = ['AIRLINE','AUTO','HOTEL','USER'];
 
 const missingUrls = [];
 if(!process.env.MONGODB_URL)missingUrls.push('MONGODB_URL');
