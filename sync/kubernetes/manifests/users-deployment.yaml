@@ -26,6 +26,7 @@ spec:
                 secretKeyRef:
                   name: travelagent-data
                   key: usersurl
+      initContainers:
         - name: init-myservice
           image: busybox:1.31
-          command: ['sh', '-c', 'until nslookup users; do echo waiting for users; sleep 2; done;']
+          command: ['sh', '-c', 'until nslookup users; do echo waiting for userss; sleep 2; done;']
