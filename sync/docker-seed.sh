@@ -4,7 +4,7 @@
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
 
 #Create the airline container image
-cd fortunes
+cd airline
 
 docker build -t airline .
 
