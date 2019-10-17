@@ -69,6 +69,7 @@ app.get('/bestDeal/:service', async (req, res) => {
         .catch(err => {
             res.writeHead(400, {'Content-Type': 'application/json'});
             const str = JSON.stringify({data: err });
+            res.end(str);
         });
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({data });
