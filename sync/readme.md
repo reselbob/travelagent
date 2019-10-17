@@ -1,34 +1,30 @@
-# Travel Agent Sync
+# Setting Up the Synchronous Version of the Travel Agent MOA to Run Under Minikube
 
-**[UNDER CONSTRUCTION]**
+## (MOA = Microservices Oriented Architecture)
 
-Let's use MLAB, it's free!
+View the architecture diagram [here](architecture.md).
 
-*BE ADVISED* You'll need to create an `.env` file in the root of `datastore` that
-has the environment variables you need to get into `MLab`
+---- 
 
-https://mlab.com/home
+Before you start, please be advised that the MOA is running inside a Kubernetes cluster. The current state of the code is that the microservices are running
+internal to Kubernetes. Hence, the application is facilitating internal "travel" behavior.
+---- 
 
-![Mlab setup 1](images/mlab/mlab-01.png)
+**Step 1**: Go to a Minikube playground on Katacoda
 
-![Mlab setup 2](images/mlab/mlab-02.png)
+(You might have to login or create an account)
 
-![Mlab setup 3](images/mlab/mlab-03.png)
+`https://katacoda.com/javajon/courses/kubernetes-fundamentals/minikube`
 
-![Mlab setup 4](images/mlab/mlab-04.png)
+**Step 2**: Load in this source code
 
-![Mlab setup 5](images/mlab/mlab-05.png)
+`git clone https://github.com/reselbob/travelagent.git`
 
-![Mlab setup 6](images/mlab/mlab-06.png)
+**Step 3**: Navigate to the synchronous version of the MOA
 
-![Mlab setup 7](images/mlab/mlab-07.png)
+`cd travelagent/sync/`
 
-![Mlab setup 8](images/mlab/mlab-08.png)
+**Step 4**: Run the shell script the creates a local Docker registry and seed the registry
+with the containers representing each microservice 
 
-![Mlab setup 9](images/mlab/mlab-09.png)
-
-![Mlab setup 10](images/mlab/mlab-10.png)
-
-![Mlab setup 11](images/mlab/mlab-11.png)
-
-![Mlab setup 12](images/mlab/mlab-12.png)
+`sh docker-seed.sh`
