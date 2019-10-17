@@ -11,5 +11,5 @@ spec:
           valueFrom:
             secretKeyRef:
               name: travelagent-data
-              value: agenturl
+              key: agenturl
   restartPolicy: Never
