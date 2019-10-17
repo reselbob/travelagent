@@ -130,10 +130,53 @@ app.post('/reservations', async (req, res) => {
     res.end(str);
 });
 
+app.get('/users/:id', async (req, res) => {
+    const data = await microservices.user.getUser(req.params.id)
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+            res.end(str);
+            return;
+        });
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    data.agent = agent;
+    const str = JSON.stringify({data });
+    console.log(str);
+    res.end(str);
+});
+
+app.get('/users', async (req, res) => {
+    const data = await microservices.user.getUsers()
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+            res.end(str);
+            return;
+        });
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    data.agent = agent;
+    const str = JSON.stringify({data });
+    console.log(str);
+    res.end(str);
+});
+
+app.post('/users', async (req, res) => {
+    const data = await microservices.user.setUsers(req.body)
+        .catch(err => {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            const str = JSON.stringify({data: err });
+            res.end(str);
+            return;
+        });
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    data.agent = agent;
+    const str = JSON.stringify({data });
+    console.log(str);
+    res.end(str);
+});
 
 
-
-var server = app.listen(port, function () {
+const server = app.listen(port, function () {
     const host = server.address().address;
     const port = server.address().port;
     console.log(`${agent} API Server started listening on listening ${host}:${port} at ${new Date()}`)

@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const service = 'airline';
-const url = `http://${!process.env[`${service}_SERVICE_URL`]}`;
+const url = 'http://'+ process.env['AIRLINE_SERVICE_URL'];
+console.log(url);
 
 const getBestDeal = async ()=> { return await axios.get(`${url}/bestDeal`)};
 const getReservations = async ()=> { return await axios.get(`${url}/reservations`)};

@@ -1,7 +1,6 @@
 const axios = require('axios');
 
-const service = 'hotel';
-const url = `http://${!process.env[`${service}_SERVICE_URL`]}`;
+const url = 'http://'+ process.env['HOTEL_SERVICE_URL'];
 
 const getBestDeal = async ()=> { return await axios.get(`${url}/bestDeal`)};
 const getReservations = async ()=> { return await axios.get(`${url}/reservations`)};
