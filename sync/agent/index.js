@@ -161,7 +161,7 @@ app.get('/users', async (req, res) => {
 });
 
 app.post('/users', async (req, res) => {
-    const data = await microservices.user.setUsers(req.body)
+    const data = await microservices.user.setUser(req.body)
         .catch(err => {
             res.writeHead(400, {'Content-Type': 'application/json'});
             const str = JSON.stringify({data: err });
