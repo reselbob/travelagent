@@ -2,12 +2,14 @@
 
 ## (MOA = Microservices Oriented Architecture)
 
+
 In order to work with the example, you'll need to set up a mongdb database somewhere that is accessible from
 the cloud. This example uses the `mongodb` cloud service,  [`mlab`](https://mlab.com). `mlab` offers free sandboxes
 for educational purposes.
 
 You're going to have to set up 5 databases, `airline`, `auto`, `hotel`, `user` and `agent`. You'll find
 detailed, illustrated instructions for setting up these databases [here](mlab-setup.md).
+
 ---- 
 
 Before you start, please be advised that the MOA is running inside a Kubernetes cluster. The current state of the code is that the microservices are running
