@@ -1,7 +1,8 @@
 # Setting Up the Synchronous Version of the Travel Agent MOA to Run Under Minikube
 
-## (MOA = Microservices Oriented Architecture)
+**(MOA = Microservices Oriented Architecture)**
 
+![architecture](./images/architecture/sync.png)
 
 In order to work with the example, you'll need to set up a mongdb database somewhere that is accessible from
 the cloud. This example uses the `mongodb` cloud service,  [`mlab`](https://mlab.com). `mlab` offers free sandboxes
