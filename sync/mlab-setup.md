@@ -4,54 +4,56 @@
 
 ## Setting Up a Database
 
-Let's use [MLAB](https://mlab.com/home), it's free!
+**Step 1:** Let's use [MLAB](https://mlab.com/home), it's free! Go to `https://mlab.com/` and
+create an account. Once you create an account, select the button, `+ CREATE new` to the
+right of MongoDB Deployments section.
 
 ![Mlab setup 1](images/mlab/mlab-01.png)
 
-Select a cloud provider of your choosing, Amazon, Google Cloud,or Azure.
+**Step 2:** Select a cloud provider of your choosing, Amazon, Google Cloud,or Azure.
 
 ![Mlab setup 2](images/mlab/mlab-02.png)
-Then select the plan, Sandbox followed by clicking the CONTNUE button on the lower right.
+**Step 3:** Then select the plan, Sandbox followed by clicking the CONTNUE button on the lower right.
 
 ![Mlab setup 3](images/mlab/mlab-03.png)
 
-Select a region that works for you followed by clicking the CONTNUE button on the lower right.
+**Step 4:** Select a region that works for you followed by clicking the CONTNUE button on the lower right.
 
 ![Mlab setup 4](images/mlab/mlab-04.png)
 
-Enter the name of one of the 5 databases were going to create, `airline`, `auto`, `hotel`, `user` or `agent`.
+**Step 5:** Enter the name of one of the 5 databases were going to create, `airline`, `auto`, `hotel`, `user` or `agent`.
 Then click the CONTNUE button on the lower right.
 
 ![Mlab setup 5](images/mlab/mlab-05.png)
 
-Then click the SUBMIT ORDER button on the lower right.
+**Step 6:** Then click the SUBMIT ORDER button on the lower right.
 
 ![Mlab setup 6](images/mlab/mlab-06.png)
 
-You'll the database listed. Click the database entry. 
+**Step 7:** You'll the database listed. Click the database entry. 
 
 ![Mlab setup 7](images/mlab/mlab-07.png)
 
-You'll see tabs for `Collections`, `Users`,`Stats`, `Backups` and `Tool`. 
+**Step 8:** You'll see tabs for `Collections`, `Users`,`Stats`, `Backups` and `Tool`. 
 
 ![Mlab setup 8](images/mlab/mlab-08.png)
 
-Click the `Users` button.
+**Step 9:** Click the `Users` button.
 
 ![Mlab setup 9](images/mlab/mlab-09.png)
 
-You'll be presented with the, `Add new database user` dialog.
+**Step 10:** You'll be presented with the, `Add new database user` dialog.
 
 ![Mlab setup 10](images/mlab/mlab-10.png)
 
-Add a user. In this case we're creating the user `travelagent`. This user will be applied
+**Step 11:** Add a user. In this case we're creating the user `travelagent`. This user will be applied
 to all the databases we'll create subsequently.
 
 Also, add a password for the user. Then, click the CREATE button.
 
 ![Mlab setup 11](images/mlab/mlab-11.png)
 
-The user is now created for the database.
+**Step 12:** The user is now created for the database.
 
 ![Mlab setup 12](images/mlab/mlab-12.png)
 
