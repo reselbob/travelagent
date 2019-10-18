@@ -2,8 +2,6 @@
 
 ## (MOA = Microservices Oriented Architecture)
 
-View the architecture diagram [here](architecture.md).
-
 In order to work with the example, you'll need to set up a mongdb database somewhere that is accessible from
 the cloud. This example uses the `mongodb` cloud service,  [`mlab`](https://mlab.com). `mlab` offers free sandboxes
 for educational purposes.
