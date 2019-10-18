@@ -14,6 +14,7 @@ detailed, illustrated instructions for setting up these databases [here](mlab-se
 
 Before you start, please be advised that the MOA is running inside a Kubernetes cluster. The current state of the code is that the microservices are running
 internal to Kubernetes. Hence, the application is facilitating internal "travel" behavior.
+
 ---- 
 
 **Step 1**: Go to a Minikube playground on Katacoda
