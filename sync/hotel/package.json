@@ -14,10 +14,12 @@
     "chai": "^4.2.0",
     "faker": "^4.1.0",
     "mocha": "^6.2.1",
+    "nyc": "^14.1.1",
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "coverage": "nyc npm run test"
   },
   "author": "Bob Reselman <reselbob@gmail.com>",
   "license": "MIT"

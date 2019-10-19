@@ -12,17 +12,19 @@ describe('HTTP Tests: ', () => {
         console.log('testing done');
     });
 
-    it('Can get bestDeal', function (done) {
-    //Go get all the lists
-    supertest(server)
-        .get('/bestDeal')
-        .set('Accept', 'application/json')
-        .expect(200)
-        .end((err, res) => {
-            if (err) return done(err);
-            expect(res.body).to.be.an('object');
-            expect(res.body.data).to.be.an('object');
-            done();
+    it('Can get best deal from each services', function (done) {
+        const services = ['AIRLINE','AUTO','HOTEL'];
+        services.forEach(service =>{
+            //Go get all the best deals
+            supertest(server)
+                .get('/bestDeal/' + service.toLocaleLowerCase())
+                .set('Accept', 'application/json')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) return done(err);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body.data).to.be.an('object');
+                });
         });
     });
 
