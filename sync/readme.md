@@ -39,6 +39,29 @@ with the containers representing each microservice
 
 **Step 5**: Add your `mLab` authentication data to the Kubernetes secret manifest file,
  `travelagent/sync/kubernetes/manifests/travelagent-secret.yaml`;
+ 
+ **BE ADVISED!!!** Step 5 is a critial step. **If you don't configure access information to mLab in
+ the secret properly**, the application will not work.
+ 
+ The following shows the "placeholder" secret manifest, `travelagent-secret.yaml` for the application.
+ 
+ ```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: travelagent-data
+type: Opaque
+data:
+  agenturl: xxxxxxx
+  autourl: xxxxxxx
+  airlineurl: xxxxxxx
+  hotelurl: xxxxxxx
+  usersurl: xxxxxx
+```
+
+You are going to enter the MongoDB (mlab) url with user and password for each database that backs
+the particular Travel Agent service. Again, this is really important. Do not hesitate to ask the
+instructor for help. Configuring the secret properly is a critical path item.
 
 **Step 6**: Install the Kubernetes artifacts
 
