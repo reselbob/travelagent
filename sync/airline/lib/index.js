@@ -1,3 +1,4 @@
+const {getInventoryItem, getInventoryItems, getReservation, getReservations} = require('../datastore');
 const faker = require('faker');
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 const random = (max) => {return Math.floor(Math.random()* max)};
@@ -13,9 +14,13 @@ const daysToAdd = random(15);
 const flightDate = incrementDate(startDate,daysToAdd);
 
 
+const getDefaultInventoryItems = async() => {
+    return['DELTA', 'UA', 'FRONTIER', 'SPIRIT','LUFTHANSA','RYANAIR'];
+};
+
 
 const getBestDeal = async() => {
-    const airline = sample(['DELTA', 'UA', 'FRONTIER', 'SPIRIT','LUFTHANSA','RYANAIR']);
+    const airline = sample(await getDefaultInventoryItems());
     const from = sample(['LAX', 'SFO', 'SJC', 'ANC','SEA','SAN']);
     const to = sample(['LGA', 'JFK', 'PHL', 'BOS','EWA','DCA']);
     const deal = {
@@ -31,7 +36,7 @@ const getBestDeal = async() => {
     return deal;
 };
 
-module.exports = {getBestDeal}
+module.exports = {getBestDeal,getDefaultInventoryItems };
 
 
 
