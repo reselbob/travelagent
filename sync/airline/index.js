@@ -64,10 +64,6 @@ app.post('/reservations', async (req, res) => {
     res.end(str);
 });
 
-app.get('/inventoryItems/search', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message: 'Not Implemented'}));
-});
 
 app.get('/inventoryItems/:id', async (req, res) => {
     const data = await getInventoryItem(req.params.id);
@@ -78,13 +74,6 @@ app.get('/inventoryItems/:id', async (req, res) => {
 
 app.get('/inventoryItems/', async (req, res) => {
     const data = await getInventoryItem(req.params.id);
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    const str = JSON.stringify({data});
-    res.end(str);
-});
-
-app.get('/inventoryItems', async (req, res) => {
-    const data = await getInventoryItems();
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({data});
     res.end(str);
@@ -115,8 +104,8 @@ app.post('/inventoryItems/', async (req, res) => {
 
 app.get('/admin/commands', async (req, res) => {
     const commands = [];
-    commands.push({method: 'POST', body: {name: 'SEED_INVENTORY_ITEMS', description: 'Seeds the inventoryItems of the microservice with data'}});
-    commands.push({method: 'POST', body: {name: 'SEED_RESERVATIONS', description: 'Seeds the reservations of the microservice with data'}});
+    commands.push({method: 'POST', body: {command: 'SEED_INVENTORY_ITEMS', description: 'Seeds the inventoryItems of the microservice with data'}});
+    commands.push({method: 'POST', body: {command: 'SEED_RESERVATIONS', description: 'Seeds the reservations of the microservice with data'}});
     const data = commands;
     res.writeHead(200, {'Content-Type': 'application/json'});
     const str = JSON.stringify({data});
@@ -127,7 +116,7 @@ app.post('/admin/commands', async (req, res) => {
     console.log({message: 'received data', url: '/admin/commands', method: 'POST', body: req.body});
     const input = req.body;
     let result = null;
-    switch(input.name.toUpperCase()){
+    switch(input.command.toUpperCase()){
         case 'SEED_INVENTORY_ITEMS':
             // seed the inventoryItems
             result = await seedInventoryItems();

@@ -63,7 +63,7 @@ describe('HTTP Tests: ', () => {
         supertest(server)
             .post('/admin/commands')
             .set('Accept', 'application/json')
-            .send({name: 'SEED_RESERVATIONS'})
+            .send({command: 'SEED_RESERVATIONS'})
             .expect(201)
             .end((err, res) => {
                 if (err) return done(err);
@@ -76,7 +76,7 @@ describe('HTTP Tests: ', () => {
         supertest(server)
             .post('/admin/commands')
             .set('Accept', 'application/json')
-            .send({name: 'SEED_INVENTORY_ITEMS'})
+            .send({command: 'SEED_INVENTORY_ITEMS'})
             .expect(201)
             .end((err, res) => {
                 if (err) return done(err);

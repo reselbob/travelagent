@@ -162,3 +162,68 @@ You'll get output similar to the following:
 	}
 }
 ```
+
+## API Reference:
+
+### auto
+
+TO BE PROVIDED
+
+### airline
+```text
+GET /inventoryItems
+GET /inventoryItems/:id
+POST /inventoryItems
+
+GET /bestDeal
+GET /reservations
+GET /reservations/:id
+POST /reservations
+```
+`GET /admin/commands`
+
+Returns
+
+```json
+{
+  "data": [
+    {
+      "method": "POST",
+      "body": {
+        "command": "SEED_INVENTORY_ITEMS",
+        "description": "Seeds the inventoryItems of the microservice with data"
+      }
+    },
+    {
+      "method": "POST",
+      "body": {
+        "command": "SEED_RESERVATIONS",
+        "description": "Seeds the reservations of the microservice with data"
+      }
+    }
+  ]
+}
+```
+
+`POST /admin/commands`
+
+Example to seed `inventoryItems`
+
+```json
+curl -H "Content-Type: application/json" -X POST -d '{"command":"SEED_INVENTORY_ITEMS"}' http://airline.example.com:3000/admin/commands
+```
+The command will seed the data store for `airline` with `inventoryItems` and return a `201` status code on success.
+
+Example to seed `reservations`
+
+```json
+curl -H "Content-Type: application/json" -X POST -d '{"command":"SEED_RESERVATIONS"}' http://airline.example.com:3000/admin/commands
+```
+
+The command will seed the data store for `airline` with 10 `resevations` and return a `201` status code on success.
+### hotel
+TO BE PROVIDED
+### agent
+TO BE PROVIDED
+### users
+TO BE PROVIDED
