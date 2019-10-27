@@ -36,7 +36,7 @@ const getRandomUser = async () =>{
     user.userName = `${user.lastName.substring(0,3)}${user.firstName.substring(0,3)}`;
     user.email = `${user.firstName}.${user.lastName}@${faker.internet.domainName()}`;
     user.phone = faker.phone.phoneNumber();
-    user.id = uuidv4()
+    user.id = uuidv4();
     return user;
 };
 

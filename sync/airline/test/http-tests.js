@@ -59,7 +59,6 @@ describe('HTTP Tests: ', () => {
     });
 
     it('Can POST admin command SEED_RESERVATIONS', function (done) {
-
         supertest(server)
             .post('/admin/commands')
             .set('Accept', 'application/json')
@@ -72,7 +71,6 @@ describe('HTTP Tests: ', () => {
     });
 
     it('Can POST admin command SEED_INVENTORY_ITEMS', function (done) {
-
         supertest(server)
             .post('/admin/commands')
             .set('Accept', 'application/json')
