@@ -1,16 +1,7 @@
 const faker = require('faker');
-const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
-const random = (max) => {return Math.floor(Math.random()* max)};
-const incrementDate = (startDate, daysToAdd) => {
-    const newdate = new Date();
-    newdate.setDate(startDate.getDate() + daysToAdd);
-    return newdate;
-};
+const {getUsers, getUser} = require('../datastore');
 
-
-
-
-const createUserSync = () => {
+const createRandomUserSync = () => {
     const user = {};
     user.firstName = faker.name.firstName();
     user.lastName = faker.name.lastName();
@@ -20,10 +11,23 @@ const createUserSync = () => {
     return user;
 };
 
-const seed = async () => {
+const seedUsers = async () => {
+    const existingUsers = await getUsers();
+    if(existingUsers) return existingUsers;
+    const numberOfUsers = process.env.NUMBER_OF_SEED_USERS || 10;
+    const arr = [];
+    for(let i= 0; i<numberOfUsers;i++){
+        const randomUser = createRandomUserSync();
+        const user = getUser();
+        user.firstName = randomUser.firstName;
+        user.lastName = randomUser.lastName;
+        user.email = randomUser.email;
+        user.phone = randomUser.phone;
+        console.log({message: 'Creating seed user', user, createDate: new Date()});
+        const result = await user.save();
+        arr.push(result)
+    }
 
+    if(arr.length > 0)return arr;
 };
-//fire it off here
-seed();
-
-module.exports = {seed,createUserSync};
+module.exports = {seedUsers,createRandomUserSync};

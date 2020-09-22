@@ -116,6 +116,7 @@ app.get('/reservations', async (req, res) => {
 
 app.post('/reservations', async (req, res) => {
     const data = req.body;
+    //TODO fix this and make it post data the way it supposed to
     const result = await setReservation(data)
         .catch(err => {
             res.writeHead(400, {'Content-Type': 'application/json'});
@@ -172,6 +173,47 @@ app.post('/users', async (req, res) => {
     data.agent = agent;
     const str = JSON.stringify({data });
     console.log(str);
+    res.end(str);
+});
+
+app.get('/admin/commands', async (req, res) => {
+    const commands = [];
+    commands.push({method: 'POST', body: {command: 'SEED_TRAVEL_AGENT', description: 'Seeds the Travel Agent of the microservice with data'}});
+    const data = commands;
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data});
+    res.end(str);
+});
+
+const getServiceUrlsConfigSync = () =>{
+    const obj = {};
+    server.forEach(service => {
+        obj[service.toLowerCase()] =  process.env[`${service}_SERVICE_URL`];
+    });
+    return obj;
+};
+
+app.post('/admin/commands', async (req, res) => {
+    console.log({message: 'received data', url: '/admin/commands', method: 'POST', body: req.body});
+    const input = req.body;
+    let result = null;
+    switch(input.command.toUpperCase()){
+        case 'SEED_TRAVEL_AGENT':
+            // seed the inventoryItems
+            result = await seedTravelAgent(getServiceUrlsConfigSync);
+            break;
+    }
+    let str = '';
+    if(!result){
+        const message = {message: 'Unknown Command', command: input.name};
+        console.error(message);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        str = JSON.stringify({message});
+    }else{
+        res.writeHead(201, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({data: {command: input.name, result}});
+        console.log({method: 'post', data: {command: input.name, result}});
+    }
     res.end(str);
 });
 

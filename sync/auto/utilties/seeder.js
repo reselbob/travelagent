@@ -1,5 +1,4 @@
-const {getInventoryItem, getReservation} = require('../datastore');
-const uuidv4 = require('uuid/v4');
+const {getInventoryItem, getReservation, getInventoryItems, getReservations} = require('../datastore');
 const faker = require('faker');
 const sample = (items) => {
     return items[Math.floor(Math.random() * items.length)];
@@ -65,6 +64,8 @@ const createReservation = async () => {
 };
 
 const seedInventoryItems = async () => {
+    const existItems = await getInventoryItems();
+    if(existItems) return existItems;
     const arr = [];
     for(let i = 0; i< vendors.length; i++){
         for(let j = 0; j < autos.length; j++){
@@ -81,6 +82,8 @@ const seedInventoryItems = async () => {
 };
 
 const seedReservations = async () => {
+    const existingReservations = await getReservations();
+    if(existingReservations) return existingReservations;
     //create 20 reservations
     const numOfReservations = 20;
     const arr = [];

@@ -1,5 +1,5 @@
 const {getDefaultInventoryItems, getBestDeal} = require('../lib');
-const {getReservation, getInventoryItem } = require('../datastore');
+const {getReservation, getInventoryItem, getReservations, getInventoryItems } = require('../datastore');
 const faker = require('faker');
 const uuidv4 = require('uuid/v4');
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
@@ -18,6 +18,8 @@ available at localhost
  */
 
 const seedInventoryItems = async () =>{
+    const existItems = await getInventoryItems();
+    if(existItems) return existItems;
     const airlines = await getDefaultInventoryItems();
     const arr = [];
     await airlines.forEach(async airline =>{
@@ -41,6 +43,8 @@ const getRandomUser = async () =>{
 };
 
 const seedReservations = async (numberOfReservations) =>{
+    const existingReservations = await getReservations();
+    if(existingReservations) return existingReservations;
     const cnt = numberOfReservations || 10;
     const arr = [];
     const vendor = 'Seeder';
@@ -63,7 +67,7 @@ const seedReservations = async (numberOfReservations) =>{
         console.log({message: 'Saved reservation', data: res});
         arr.push(result);
     }
-    return arr;
+    if(arr.length > 0)return arr;
 }
 
 

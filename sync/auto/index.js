@@ -146,8 +146,6 @@ app.post('/admin/commands', async (req, res) => {
     res.end(str);
 });
 
-
-
 const agent = 'Auto';
 
 const server = app.listen(port, function () {
