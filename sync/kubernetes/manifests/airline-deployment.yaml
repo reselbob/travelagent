@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   name: airline
   labels:
-    name: airline
+    app: airline
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: airline
+      app: airline
   strategy:
     type: RollingUpdate
     rollingUpdate:

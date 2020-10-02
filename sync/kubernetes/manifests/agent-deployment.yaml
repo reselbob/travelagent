@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   name: agent
   labels:
-    name: agent
+    app: agent
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: agent
+      app: agent
   strategy:
     type: RollingUpdate
     rollingUpdate:
