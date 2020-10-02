@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const describe = require('mocha').describe;
 const it = require('mocha').it;
 const {getInventoryItem, getInventoryItems, getReservation} = require('../datastore');
-
+require('dotenv').config()
 // Connection URL
 const url = process.env.MONGODB_URL;
 
