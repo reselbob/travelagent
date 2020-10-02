@@ -1,5 +1,5 @@
 const faker = require('faker');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const {getInventoryItem, getInventoryItems, getReservation} = require('../datastore');
 
 const sample = (items) => {
