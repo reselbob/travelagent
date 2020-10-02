@@ -3,8 +3,13 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: agent
+  labels:
+    app: agent
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: agent
   strategy:
     type: RollingUpdate
     rollingUpdate:

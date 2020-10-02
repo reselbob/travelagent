@@ -65,7 +65,9 @@ instructor for help. Configuring the secret properly is a critical path item.
 
 **Step 6**: Install the Kubernetes artifacts
 
-`sh kubernetes/generate-k8s-resources.sh`
+`cd kubernetes`
+
+`sh generate-k8s-resources.sh`
 
 **Step 7**: Go to a new terminal window in Katacoda and find out the id's of the pods that make up the various deployments.
 

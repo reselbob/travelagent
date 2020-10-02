@@ -3,8 +3,13 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: hotel
+  labels:
+    app: hotell
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: hotel
   strategy:
     type: RollingUpdate
     rollingUpdate:

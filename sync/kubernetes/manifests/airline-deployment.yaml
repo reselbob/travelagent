@@ -3,8 +3,13 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: airline
+  labels:
+    app: airline
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: airline
   strategy:
     type: RollingUpdate
     rollingUpdate:
