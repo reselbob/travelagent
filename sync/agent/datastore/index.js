@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const Reservation = require('./reservation');
 
+const path = require('path');
+const envPath = path.resolve( __dirname, '.env')
+require('dotenv').config({ path: envPath})
+
 const moption = {
     useNewUrlParser: true,
     useUnifiedTopology: true

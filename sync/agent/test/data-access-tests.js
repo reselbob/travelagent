@@ -10,10 +10,11 @@ describe('Agent Data Access Tests', () => {
         dealmakers.forEach(async (service) => {
             let error;
             const deal = await microservices[service.toLowerCase()].getBestDeal();
+            console.log(deal);
             if(error)done(error);
             expect(deal).to.be.an('object');
-            done();
         });
+
+        done();
     });
 });
-

@@ -6,7 +6,7 @@ const createRandomUserSync = () => {
     user.firstName = faker.name.firstName();
     user.lastName = faker.name.lastName();
     user.userName = `${user.lastName.substring(0,3)}${user.firstName.substring(0,3)}`;
-    user.email = `${user.firstName}.${user.lastName}@${faker.internet.domainName()}`;
+    user.email = `${user.firstName}.${user.lastName}@${user.firstName}${user.lastName}.${faker.internet.domainSuffix()}`.toLocaleLowerCase();
     user.phone = faker.phone.phoneNumber();
     return user;
 };

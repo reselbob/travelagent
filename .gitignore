@@ -57,7 +57,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+sync/airline/datastore/.env
 
 # next.js build output
 .next
