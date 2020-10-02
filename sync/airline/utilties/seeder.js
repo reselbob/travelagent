@@ -1,7 +1,7 @@
 const {getDefaultInventoryItems, getBestDeal} = require('../lib');
 const {getReservation, getInventoryItem, getReservations, getInventoryItems } = require('../datastore');
 const faker = require('faker');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 const random = (max) => {return Math.floor(Math.random()* max)};
 const incrementDate = (startDate, daysToAdd) => {
