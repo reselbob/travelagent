@@ -5,6 +5,9 @@ metadata:
   name: airline
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: airline
   strategy:
     type: RollingUpdate
     rollingUpdate:

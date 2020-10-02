@@ -5,6 +5,9 @@ metadata:
   name: hotel
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: hotel
   strategy:
     type: RollingUpdate
     rollingUpdate:

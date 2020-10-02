@@ -5,6 +5,9 @@ metadata:
   name: agent
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: agent
   strategy:
     type: RollingUpdate
     rollingUpdate:
