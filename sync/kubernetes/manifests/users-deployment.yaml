@@ -3,6 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: users
+  labels:
+    name: users
 spec:
   replicas: 1
   selector:

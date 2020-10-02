@@ -3,6 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: airline
+  labels:
+    name: airline
 spec:
   replicas: 1
   selector:
