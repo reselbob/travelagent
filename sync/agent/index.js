@@ -186,8 +186,9 @@ app.get('/admin/commands', async (req, res) => {
 });
 
 const getServiceUrlsConfigSync = () =>{
+    const services = ['AIRLINE', 'AUTO', 'HOTEL', 'USER']
     const obj = {};
-    server.forEach(service => {
+    services.forEach(service => {
         obj[service.toLowerCase()] =  process.env[`${service}_SERVICE_URL`];
     });
     return obj;
