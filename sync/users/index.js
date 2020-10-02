@@ -9,8 +9,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-const {getUser, getUsers} = require('./datastore');
-
 app.get('/users/:id', async (req, res) => {
     const data = await getUser(req.params.id);
     res.writeHead(200, {'Content-Type': 'application/json'});
