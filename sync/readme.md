@@ -83,15 +83,15 @@ instructor for help. Configuring the secret properly is a critical path item.
 
 You'll get output similar to the following:
 
-**Step 10**: Find the IP address of the cluster
+**Step 10**: Turn on the proxy
 
-`kubectl cluster-info`
+`kubectl proxy`
 
 **Step 11**: Call the `bestDeal` endpoint the `agent` service exposes using a `curl` command like so:
 
 In this case we'll get the Best Deal from the airline
 
-`curl IP_OF_CLUSTER:NODE-PORT/bestDeal/airline`
+`curl 127.0.0.1:NODE-PORT/bestDeal/airline`
 
 You'll get output similar to the following:
 
