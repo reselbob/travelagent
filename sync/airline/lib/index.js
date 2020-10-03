@@ -20,6 +20,8 @@ const getDefaultInventoryItems = async() => {
 
 
 const getBestDeal = async() => {
+
+
     const airline = sample(await getDefaultInventoryItems());
     const from = sample(['LAX', 'SFO', 'SJC', 'ANC','SEA','SAN']);
     const to = sample(['LGA', 'JFK', 'PHL', 'BOS','EWA','DCA']);

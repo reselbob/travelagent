@@ -65,7 +65,7 @@ const createReservation = async () => {
 
 const seedInventoryItems = async () => {
     const existItems = await getInventoryItems();
-    if(existItems) return existItems;
+    if(existItems.length >0) return existItems;
     const arr = [];
     for(let i = 0; i< vendors.length; i++){
         for(let j = 0; j < autos.length; j++){

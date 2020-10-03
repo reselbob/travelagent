@@ -42,7 +42,7 @@ const getRandomUser = async () =>{
     return user;
 };
 
-const seedReservations = async (numberOfReservations) =>{
+const seedReservations = async (numberOfReservations, user) =>{
     const existingReservations = await getReservations();
     if(existingReservations.length> 0) return existingReservations;
     const cnt = numberOfReservations || 10;
@@ -58,7 +58,7 @@ const seedReservations = async (numberOfReservations) =>{
         res.flightNumber  = deal.flightNumber;
         res.from  =deal.from;
         res.to  = deal.to;
-        res.vendor =  vendor;
+        res.vendor =  deal.vendor;
         res.departure = deal.departure;
         res.arrival =   deal.arrival;
         res.price =  deal.price;

@@ -82,6 +82,8 @@ const seedReservations = async () => {
 
 
 const seedInventoryItems = async () => {
+    const items = await getInventoryItems();
+    if(items.length > 0) return items;
     const arr = [];
     for(let i = 0; i< vendors.length; i++){
             const item = await getInventoryItem();
