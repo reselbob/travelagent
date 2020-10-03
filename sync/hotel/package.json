@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A microservice that represents hotels and hotel reservations.",
   "main": "index.js",
+  "private": true,
   "directories": {
     "test": "test"
   },

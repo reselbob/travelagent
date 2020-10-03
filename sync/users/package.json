@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A microservice for users",
   "main": "index.js",
+  "private": true,
   "directories": {
     "test": "test"
   },

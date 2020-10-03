@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A microservice for auto rental",
   "main": "index.js",
+  "private": true,
   "directories": {
     "test": "mocha test"
   },

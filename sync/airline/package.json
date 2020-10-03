@@ -2,6 +2,7 @@
   "name": "airline",
   "version": "1.0.0",
   "description": "A microservice for airline rental",
+  "private": true,
   "main": "index.js",
   "directories": {
     "test": "test"

@@ -2,6 +2,7 @@
   "name": "agent",
   "version": "1.0.0",
   "description": "A project that demonstrates how to aggregate microservices",
+  "private": true,
   "main": "index.js",
   "directories": {
     "test": "test"
