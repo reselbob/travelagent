@@ -1,6 +1,6 @@
-const axios = require('axios');
 const faker = require('faker');
 const {getReservation, getReservations} = require('../datastore');
+const  {seedAirline,seedHotel, seedAutos, seedUsers} = require('../../tools/app/helpers/seederHelper')
 const sample = (items) => {
     return items[Math.floor(Math.random() * items.length)];
 };
@@ -15,7 +15,7 @@ const incrementDate = (startDate, daysToAdd) => {
 
 const seedTravelAgent = async (urlsConfig) => {
     const existingReservations = await getReservations();
-    if( existingReservations) return existingReservations;
+    if( existingReservations.lenght > 0) return existingReservations;
 
     const obj = {};
     //get a random hotel inventory item

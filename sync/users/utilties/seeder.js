@@ -1,5 +1,5 @@
 const faker = require('faker');
-const {getUsers, getUser} = require('../datastore');
+const  {getUser, getUsers} = require('../datastore');
 
 const createRandomUserSync = () => {
     const user = {};
@@ -11,14 +11,14 @@ const createRandomUserSync = () => {
     return user;
 };
 
-const seedUsers = async () => {
+const seedUsers = async (users) => {
     const existingUsers = await getUsers();
-    if(existingUsers) return existingUsers;
-    const numberOfUsers = process.env.NUMBER_OF_SEED_USERS || 10;
+    if(existingUsers.length >0) return existingUsers;
+    const numberOfUsers = users || 10;
     const arr = [];
     for(let i= 0; i<numberOfUsers;i++){
         const randomUser = createRandomUserSync();
-        const user = getUser();
+        const user = await getUser();
         user.firstName = randomUser.firstName;
         user.lastName = randomUser.lastName;
         user.email = randomUser.email;

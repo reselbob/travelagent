@@ -27,7 +27,7 @@ const getInventoryItem = async (id) =>{
 const getInventoryItems = async () =>{
     const items  = await mongoose.connect(process.env.MONGODB_URL,moption)
         .then (result => {
-            return InventoryItem.find({});
+            return InventoryItem.find({}).lean();
         })
     return items;
 };

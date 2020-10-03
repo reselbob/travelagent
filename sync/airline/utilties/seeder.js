@@ -19,14 +19,14 @@ available at localhost
 
 const seedInventoryItems = async () =>{
     const existItems = await getInventoryItems();
-    if(existItems) return existItems;
+    if(existItems.length > 0) return existItems;
     const airlines = await getDefaultInventoryItems();
     const arr = [];
     await airlines.forEach(async airline =>{
         const item = await getInventoryItem();
         item.airline = airline;
         const result = await item.save();
-        arr.push(result);
+        arr.push(result.airline);
     });
     return arr;
 };
@@ -44,7 +44,7 @@ const getRandomUser = async () =>{
 
 const seedReservations = async (numberOfReservations) =>{
     const existingReservations = await getReservations();
-    if(existingReservations) return existingReservations;
+    if(existingReservations.length> 0) return existingReservations;
     const cnt = numberOfReservations || 10;
     const arr = [];
     const vendor = 'Seeder';
