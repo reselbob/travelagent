@@ -1,4 +1,5 @@
 const express = require('express');
+const {seedReservations,seedInventoryItems} = require('./utilties/seeder');
 const app = express();
 const port = process.env.APP_PORT || 3000;
 
@@ -67,11 +68,6 @@ app.post('/reservations', async (req, res) => {
     res.end(str);
 });
 
-app.get('/inventoryItems/search', async (req, res) => {
-    res.writeHead(501, {'Content-Type': 'application/json'});
-    res.send(JSON.stringify({message:'Not Implemented'}));
-});
-
 app.get('/inventoryItems/:id', async (req, res) => {
     const data = await getInventoryItem(req.params.id);
     res.writeHead(200, {'Content-Type': 'application/json'});
@@ -112,6 +108,44 @@ app.post('/inventoryItems/', async (req, res) => {
     console.log({data:result });
     res.end(str);
 });
+
+app.get('/admin/commands', async (req, res) => {
+    const commands = [];
+    commands.push({method: 'POST', body: {command: 'SEED_INVENTORY_ITEMS', description: 'Seeds the inventoryItems of the microservice with data'}});
+    commands.push({method: 'POST', body: {command: 'SEED_RESERVATIONS', description: 'Seeds the reservations of the microservice with data'}});
+    const data = commands;
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const str = JSON.stringify({data});
+    res.end(str);
+});
+
+app.post('/admin/commands', async (req, res) => {
+    console.log({message: 'received data', url: '/admin/commands', method: 'POST', body: req.body});
+    const input = req.body;
+    let result = null;
+    switch(input.command.toUpperCase()){
+        case 'SEED_INVENTORY_ITEMS':
+            // seed the inventoryItems
+            result = await seedInventoryItems();
+            break;
+        case 'SEED_RESERVATIONS':
+            result = await seedReservations();
+            break;
+    }
+    let str = '';
+    if(!result){
+        const message = {message: 'Unknown Command', command: input.name};
+        console.error(message);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        str = JSON.stringify({message});
+    }else{
+        res.writeHead(201, {'Content-Type': 'application/json'});
+        const str = JSON.stringify({data: {command: input.name, result}});
+        console.log({method: 'post', data: {command: input.name, result}});
+    }
+    res.end(str);
+});
+
 const agent = 'Auto';
 
 const server = app.listen(port, function () {

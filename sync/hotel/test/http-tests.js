@@ -2,11 +2,7 @@ const supertest = require('supertest');
 const expect = require('chai').expect;
 const describe = require('mocha').describe;
 const it = require('mocha').it;
-
-const {createUser, createReservation} = require('../utilities/seeder');
-
 const {server} = require('../index');
-
 
 describe('HTTP Tests: ', () => {
     after(async () => {
@@ -42,6 +38,29 @@ describe('HTTP Tests: ', () => {
             });
     });
 
+    it('Can POST admin command SEED_RESERVATIONS', function (done) {
+        supertest(server)
+            .post('/admin/commands')
+            .set('Accept', 'application/json')
+            .send({command: 'SEED_RESERVATIONS'})
+            .expect(201)
+            .end((err, res) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+
+    it('Can POST admin command SEED_INVENTORY_ITEMS', function (done) {
+        supertest(server)
+            .post('/admin/commands')
+            .set('Accept', 'application/json')
+            .send({command: 'SEED_INVENTORY_ITEMS'})
+            .expect(201)
+            .end((err, res) => {
+                if (err) return done(err);
+                done();
+            });
+    });
 
     const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 

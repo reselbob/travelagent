@@ -39,6 +39,30 @@ describe('HTTP Tests: ', () => {
             });
     });
 
+    it('Can POST admin command SEED_RESERVATIONS', function (done) {
+        supertest(server)
+            .post('/admin/commands')
+            .set('Accept', 'application/json')
+            .send({command: 'SEED_RESERVATIONS'})
+            .expect(201)
+            .end((err, res) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+
+    it('Can POST admin command SEED_INVENTORY_ITEMS', function (done) {
+        supertest(server)
+            .post('/admin/commands')
+            .set('Accept', 'application/json')
+            .send({command: 'SEED_INVENTORY_ITEMS'})
+            .expect(201)
+            .end((err, res) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+
     const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 
     const random = (max) => {return Math.floor(Math.random()* max)};

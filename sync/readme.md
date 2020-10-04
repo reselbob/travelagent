@@ -83,15 +83,15 @@ instructor for help. Configuring the secret properly is a critical path item.
 
 You'll get output similar to the following:
 
-**Step 10**: Find the IP address of the cluster
+**Step 10**: Turn on the proxy
 
-`kubectl cluster-info`
+`kubectl proxy`
 
 **Step 11**: Call the `bestDeal` endpoint the `agent` service exposes using a `curl` command like so:
 
 In this case we'll get the Best Deal from the airline
 
-`curl IP_OF_CLUSTER:NODE-PORT/bestDeal/airline`
+`curl 127.0.0.1:NODE-PORT/bestDeal/airline`
 
 You'll get output similar to the following:
 
@@ -164,3 +164,68 @@ You'll get output similar to the following:
 	}
 }
 ```
+
+## API Reference:
+
+### auto
+
+TO BE PROVIDED
+
+### airline
+```text
+GET /inventoryItems
+GET /inventoryItems/:id
+POST /inventoryItems
+
+GET /bestDeal
+GET /reservations
+GET /reservations/:id
+POST /reservations
+```
+`GET /admin/commands`
+
+Returns
+
+```json
+{
+  "data": [
+    {
+      "method": "POST",
+      "body": {
+        "command": "SEED_INVENTORY_ITEMS",
+        "description": "Seeds the inventoryItems of the microservice with data"
+      }
+    },
+    {
+      "method": "POST",
+      "body": {
+        "command": "SEED_RESERVATIONS",
+        "description": "Seeds the reservations of the microservice with data"
+      }
+    }
+  ]
+}
+```
+
+`POST /admin/commands`
+
+Example to seed `inventoryItems`
+
+```json
+curl -H "Content-Type: application/json" -X POST -d '{"command":"SEED_INVENTORY_ITEMS"}' http://airline.example.com:3000/admin/commands
+```
+The command will seed the data store for `airline` with `inventoryItems` and return a `201` status code on success.
+
+Example to seed `reservations`
+
+```json
+curl -H "Content-Type: application/json" -X POST -d '{"command":"SEED_RESERVATIONS"}' http://airline.example.com:3000/admin/commands
+```
+
+The command will seed the data store for `airline` with 10 `resevations` and return a `201` status code on success.
+### hotel
+TO BE PROVIDED
+### agent
+TO BE PROVIDED
+### users
+TO BE PROVIDED

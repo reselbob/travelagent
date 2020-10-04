@@ -2,13 +2,15 @@
   "name": "airline",
   "version": "1.0.0",
   "description": "A microservice for airline rental",
+  "private": true,
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "faker": "^4.1.0",
+    "uuid": "^8.3.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "mongoose": "^5.7.5"
   },
   "devDependencies": {

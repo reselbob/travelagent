@@ -1,7 +1,11 @@
-const {getInventoryItem} =  require('../datastore');
-//const uuidv4 = require('uuid/v4');
-const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
-const random = (max) => {return Math.floor(Math.random()* max)};
+const {getInventoryItem, getReservation, getInventoryItems, getReservations} = require('../datastore');
+const faker = require('faker');
+const sample = (items) => {
+    return items[Math.floor(Math.random() * items.length)];
+};
+const random = (max) => {
+    return Math.floor(Math.random() * max)
+};
 const incrementDate = (startDate, daysToAdd) => {
     const newdate = new Date();
     newdate.setDate(startDate.getDate() + daysToAdd);
@@ -10,6 +14,15 @@ const incrementDate = (startDate, daysToAdd) => {
 
 const vendors = ['ENTERPRISE', 'NATIONAL', 'AVIS', 'BUDGET', 'DOLLAR'];
 
+const getRandomUser = async () => {
+    const user = {};
+    user.firstName = faker.name.firstName();
+    user.lastName = faker.name.lastName();
+    user.email = `${user.firstName}.${user.lastName}@${faker.internet.domainName()}`;
+    user.phone = faker.phone.phoneNumber();
+    user.id = uuidv4();
+    return user;
+};
 const autos = [
     {
         make: 'Dodge',
@@ -40,59 +53,54 @@ const autos = [
 const createReservation = async () => {
     const startDate = new Date();
     const daysToAdd = random(7);
-    const endDate =  incrementDate(startDate, daysToAdd);
+    const endDate = incrementDate(startDate, daysToAdd);
     const reservation = {};
     reservation.auto = sample(await autos);
+    reservation.vendor = sample(vendors);
     reservation.checkIn = startDate;
     reservation.checkOut = endDate;
     reservation.price = random(100) * daysToAdd;
-
+    return reservation;
 };
 
-const seedAutoInventory = async () => {
+const seedInventoryItems = async () => {
+    const existItems = await getInventoryItems();
+    if(existItems.length >0) return existItems;
+    const arr = [];
     for(let i = 0; i< vendors.length; i++){
-        autos.forEach( async auto =>{
+        for(let j = 0; j < autos.length; j++){
             const item = await getInventoryItem();
             item.vendor = vendors[i];
-            item.auto = auto;
-            console.log(item);
-            await item.save();
-        });
-
+            item.auto = autos[j];
+            console.log({message: 'Saving Auto Inventory', item});
+            const result = await item.save();
+            console.log({message: 'Saved Auto Inventory', item});
+            arr.push(result);
+        }
     }
+    if(arr.length > 0) return arr;
 };
 
-const seed = async () => {
-
-    //create 20 users
-    const numOfUsers = 20;
-    const users = new Users();
-    const authentication  = new Authentication();
-    for(let i = 0; i < numOfUsers; i++){
-        const user = createUser();
-        const pwd = user.password;
-        delete user.password;
-        await users.setItem(user);
-        user.password = pwd;
-        await authentication.setItem(user);
-    };
-
-    const userList = await users.getItems();
-    //create 100 reservations
-    const numOfReservations = 100;
-    const reservations = new Reservation();
-    for(let i = 0; i < numOfReservations; i++){
-        const reservation = await createReservation();
-        reservation.user = sample(userList);
-        await reservations.setItem(reservation);
+const seedReservations = async () => {
+    const existingReservations = await getReservations();
+    if(existingReservations) return existingReservations;
+    //create 20 reservations
+    const numOfReservations = 20;
+    const arr = [];
+    for (let i = 0; i < numOfReservations; i++) {
+        const reservation = await getReservation();
+        const res = await createReservation();
+        reservation.user = await getRandomUser();
+        reservation.auto = res.auto;
+        reservation.vendor = res.vendor;
+        reservation.checkIn = res.checkIn;
+        reservation.checkOut = res.checkOut;
+        reservation.price = res.price;
+        console.log({message: 'Saving Reservation', reservation: res});
+        arr.push(reservation.save());
     }
-
-    const userCount = await users.getItems();
-    const reservationList =  await reservations.getItems();
-    console.log({reservationListCount: reservationList.length, userCount:userCount.length})
+    console.log({reservationListCount: arr.length});
+    const result = await Promise.all(arr);
+    return result;
 };
-//fire it off here
-//seed();
-seedAutoInventory();
-
-module.exports = {seed,createReservation,seedAutoInventory};
+module.exports = {seedReservations, seedInventoryItems};
