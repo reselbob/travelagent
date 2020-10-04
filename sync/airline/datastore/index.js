@@ -17,6 +17,7 @@ if(!process.env.MONGODB_URL)throw new Error('The required environment variable, 
 let db_url = process.env.MONGODB_URL
 if(process.env.SEEDING ) db_url = `${process.env.MONGODB_URL}/${service}`
 
+console.log({service: service, url: db_url})
 
 const getInventoryItem = async (id) =>{
     console.log(id);

@@ -16,6 +16,8 @@ if(!process.env.MONGODB_URL)throw new Error('The required environment variable, 
 let db_url = process.env.MONGODB_URL
 if(process.env.SEEDING ) db_url = `${process.env.MONGODB_URL}/${service}`
 
+console.log({service: service, url: db_url, seeder_env_var: process.env.SEEDING})
+
 const getInventoryItem = async (id) =>{
     console.log(id);
     const item  = await mongoose.connect(db_url,moption)
