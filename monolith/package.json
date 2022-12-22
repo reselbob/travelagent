@@ -9,7 +9,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "httpdispatcher": "^2.1.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
